@@ -26,23 +26,23 @@ public:
 
     //---- Callbacks
 
-    virtual void onCollideTile(const MapTileCollision & collision_data) = 0;
+    virtual void onCollideTile  (const MapTile * tile,  const CollisionData * collision_data) = 0;
 
-    virtual void onCollideEntity(const EntityCollision & collision_data) = 0;
+    virtual void onCollideEntity(const Entity * entity, const CollisionData * collision_data) = 0;
 
     //---- Accessors
 
     Id                      getId() const { return _id; }
 
-    virtual CollisionStyle  getCollisionStyle() = 0;
+    virtual CollisionStyle  getCollisionStyle() const = 0;
 
-    virtual CollisionMask   getCollisionMask() = 0;
+    virtual CollisionMask   getCollisionMask() const = 0;
 
-    virtual sf::FloatRect   getBounds() = 0;
+    virtual sf::FloatRect   getBounds() const = 0;
 
-    virtual sf::FloatRect   getRenderBounds() { return getBounds(); }
+    virtual sf::FloatRect   getRenderBounds() const { return getBounds(); }
 
-    virtual sf::Vector2f    getVelocity() = 0;
+    virtual sf::Vector2f    getVelocity() const = 0;
 
 private:
     Id _id;

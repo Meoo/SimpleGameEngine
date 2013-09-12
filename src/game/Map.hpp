@@ -27,6 +27,8 @@ typedef struct MapCoord
 
 typedef struct MapTile
 {
+    MapCoord position;
+
     CollisionMask collision_mask;
 
     CollisionStyle collision_style;
@@ -43,7 +45,7 @@ typedef struct MapInfo
 
     MapCoord    offset;
 
-};
+} MapInfo;
 
 //----
 

@@ -6,9 +6,13 @@
 #ifndef _COLLISIONS_HPP_
 #define _COLLISIONS_HPP_
 
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
+
 class Entity;
 struct MapCoord;
 struct MapTile;
+
 
 typedef enum CollisionMask
 {
@@ -31,6 +35,7 @@ typedef enum CollisionMask
     COLLISION_MASK_TRAP_TRIGGER     = 1 << 14,
 
 } CollisionMask;
+
 
 typedef enum CollisionStyle
 {
@@ -63,26 +68,30 @@ typedef enum CollisionStyle
 
 } CollisionStyle;
 
-// Entity - Tile collision data
-typedef struct MapTileCollision
-{
-    const struct MapCoord & tile_position;
 
-    const struct MapTile & tile;
+typedef struct CollisionData
+{
+    bool collides;
 
     CollisionMask collision_mask;
 
-} MapTileCollision;
+    sf::Vector2i push_out_vector;
 
-// Entity - Entity collision data
-typedef struct EntityCollision
+} CollisionData;
+
+
+namespace Collision
 {
-    const Entity * first;
+    void checkCollisionEntityTile(const Entity * entity, const MapTile * tile, CollisionData * output);
 
-    const Entity * second;
+    void checkCollisionEntityEntity(const Entity * first, const Entity * second, CollisionData * output);
 
-    CollisionMask collision_mask;
-
-} EntityCollision;
+    /* force is the difference of velocity between the two objects (first_velocity - second_velocity)
+     * it is used to get a good direction on CollisionData.push_out_vector
+     */
+    void checkCollision(const sf::FloatRect & first_bounds,  CollisionMask first_mask,  CollisionStyle first_style,
+                        const sf::FloatRect & second_bounds, CollisionMask second_mask, CollisionStyle second_style,
+                        const sf::Vector2f & force, CollisionData * output);
+}
 
 #endif // _COLLISIONS_HPP_
