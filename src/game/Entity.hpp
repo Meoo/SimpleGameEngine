@@ -47,6 +47,11 @@ public:
 
     virtual sf::Vector2f    getVelocity() const = 0;
 
+#ifndef NDEBUG
+protected:
+    void                    drawCollisionMask(sf::RenderTarget & target, sf::RenderStates states) const;
+#endif
+
 private:
     Id _id;
 
