@@ -1,9 +1,9 @@
 SimpleGameEngine
 ================
 
-Simple game engine using SFML2
-This engine is designed to quickly prototype games, as it was created to be used in Ludum Dare Competition (http://www.ludumdare.com/compo/)
-The code is distributed under license GPLv3
+Simple game engine using SFML2.
+This engine is designed to quickly prototype games, as it was created to be used in Ludum Dare Competition (http://www.ludumdare.com/compo/).
+The code is distributed under license GPLv3.
 
 
 Features
@@ -11,17 +11,17 @@ Features
 
 ### Screens ###
 
-Different game states are handled using "Screens"
+Different game states are handled using "Screens".
 
 
 ### Asynchronous tasks ###
 
-Run tasks on a secondary thread
+Run tasks on a secondary thread.
 
 
 ### Resources managing ###
 
-Create resources handles from a manager, and the file will be loaded automatically on a secondary thread
+Create resources handles from a manager, and the file will be loaded automatically on a secondary thread.
 If the resource is not ready when you need it, the game will freeze until it is
 
 
@@ -31,6 +31,7 @@ If the resource is not ready when you need it, the game will freeze until it is
 ### Physics engine ###
 
 Quadtrees
+
 TBD
 
 
@@ -62,5 +63,5 @@ SGE use the following libraries and tools :
 * Tinythread++ (http://tinythreadpp.bitsnbites.eu/)
 * Default font by Rodrigo Fuenzalida (http://www.dafont.com/poetsen-one.font)
 
-To build SGE, you have to download and build SFML2
-You will also need binaries of Premake4
+To build SGE, you have to download and build SFML2.
+You will also need binaries of Premake4.
