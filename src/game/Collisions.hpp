@@ -30,6 +30,9 @@ typedef enum CollisionMask
     COLLISION_MASK_PROJECTILE       = 1 << 8,
     COLLISION_MASK_MAGIC_MISSILE    = 1 << 9,
 
+    COLLISION_MASK_PLAYER           = 1 << 10,
+    COLLISION_MASK_ENEMY            = 1 << 11,
+
     COLLISION_MASK_TRAP_SPIKE       = 1 << 12,
     COLLISION_MASK_TRAP_SUPERSPIKE  = 1 << 13,
     COLLISION_MASK_TRAP_TRIGGER     = 1 << 14,
