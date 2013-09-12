@@ -6,6 +6,9 @@
 #ifndef _ENTITY_HPP_
 #define _ENTITY_HPP_
 
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/System/Time.hpp>
+
 #include "game/Collisions.hpp"
 
 class Entity : public sf::Drawable
