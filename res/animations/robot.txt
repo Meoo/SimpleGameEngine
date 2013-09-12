@@ -1,0 +1,34 @@
+ANIM idle
+TIME 1
+LOOP
+BEGIN
+0
+END
+
+ANIM walk_right
+TIME 0.6
+LOOP
+BEGIN
+0 1 0 2
+END
+
+ANIM walk_left
+TIME 0.6
+LOOP
+BEGIN
+0 1 0 3
+END
+
+ANIM jumping
+TIME 1
+NEXT falling
+BEGIN
+1
+END
+
+ANIM falling
+TIME 1
+LOOP
+BEGIN
+4
+END
