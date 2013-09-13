@@ -54,4 +54,6 @@ project "SGE"
     sfml_links(sfml_libs, false, SFML_STATIC)
 
   configuration "not Windows"
+    -- may require sndfile and openal
+    -- also, is it enough for Mac?
     links { "pthread", "X11", "GL", "Xrandr", "freetype", "GLEW", "jpeg" }
