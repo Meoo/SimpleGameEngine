@@ -75,6 +75,9 @@ const sf::String MENU_YES           ("Yes");
 const sf::String MENU_NO            ("No");
 
 
+const unsigned   QUADTREE_MINIMUM_SIZE = 2u; // 1 min
+
+
 const sf::String ERROR_STRING       ("<<<ERROR>>>");
 
 
