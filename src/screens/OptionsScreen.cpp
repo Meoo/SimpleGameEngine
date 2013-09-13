@@ -6,6 +6,7 @@
 #include "screens/OptionsScreen.hpp"
 
 #include <cstdio>
+#include <cassert>
 
 #include "Config.hpp"
 
@@ -166,7 +167,7 @@ void OptionsScreen::draw(sf::RenderTarget & target, sf::RenderStates states) con
         text.setString(MENU_FULLSCREEN);
         break;
     default:
-        text.setString(ERROR_STRING);
+        assert(false);
         break;
     }
     DRAW_TEXT(MODE, 220, -120);
