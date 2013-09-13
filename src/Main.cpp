@@ -6,7 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Config.hpp"
-#include "Screen.hpp"
+#include "screens/Screen.hpp"
 #include "screens/IntroScreen.hpp"
 #include "resources/Async.hpp"
 #include "resources/Resources.hpp"

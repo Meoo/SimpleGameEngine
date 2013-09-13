@@ -6,7 +6,7 @@
 #ifndef _TRANSITIONSCREEN_HPP_
 #define _TRANSITIONSCREEN_HPP_
 
-#include "Screen.hpp"
+#include "screens/Screen.hpp"
 
 class TransitionScreen : public Screen
 {

@@ -6,7 +6,7 @@
 #ifndef _MENUSCREEN_HPP_
 #define _MENUSCREEN_HPP_
 
-#include "Screen.hpp"
+#include "screens/Screen.hpp"
 
 #include "resources/Resources.hpp"
 

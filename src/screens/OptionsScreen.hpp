@@ -6,7 +6,7 @@
 #ifndef _OPTIONSSCREEN_HPP_
 #define _OPTIONSSCREEN_HPP_
 
-#include "Screen.hpp"
+#include "screens/Screen.hpp"
 
 #include "resources/Resources.hpp"
 

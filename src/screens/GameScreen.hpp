@@ -6,7 +6,7 @@
 #ifndef _GAMESCREEN_HPP_
 #define _GAMESCREEN_HPP_
 
-#include "Screen.hpp"
+#include "screens/Screen.hpp"
 
 #include "resources/Resources.hpp"
 #include "game/Animation.hpp"

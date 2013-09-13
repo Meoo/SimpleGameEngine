@@ -6,7 +6,7 @@
 #ifndef _INTROSCREEN_HPP_
 #define _INTROSCREEN_HPP_
 
-#include "Screen.hpp"
+#include "screens/Screen.hpp"
 
 #include "resources/Resources.hpp"
 
