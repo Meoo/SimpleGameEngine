@@ -18,24 +18,18 @@ typedef enum CollisionMask
 {
     COLLISION_MASK_WORLD            = 1 << 0,
 
-    COLLISION_MASK_WATER            = 1 << 1,
-    COLLISION_MASK_TOXIC            = 1 << 2,
-    COLLISION_MASK_SLOW             = 1 << 3,
+    // Team collisions, used (for example) to prevent player projectiles hitting his allies
+    COLLISION_MASK_GROUP_PLAYERS    = 1 << 1,
+    COLLISION_MASK_GROUP_ENEMIES    = 1 << 2,
+    COLLISION_MASK_GROUP_NEUTRAL    = 1 << 3,
 
-    COLLISION_MASK_MAGIC            = 1 << 4,
-    COLLISION_MASK_GHOST            = 1 << 5,
+    // Used by trigger entities and tiles
+    COLLISION_MASK_SPECIAL_TRIGGER  = 1 << 4,
 
-    COLLISION_MASK_EVENT            = 1 << 7,
-
-    COLLISION_MASK_PROJECTILE       = 1 << 8,
-    COLLISION_MASK_MAGIC_MISSILE    = 1 << 9,
-
-    COLLISION_MASK_PLAYER           = 1 << 10,
-    COLLISION_MASK_ENEMY            = 1 << 11,
-
-    COLLISION_MASK_TRAP_SPIKE       = 1 << 12,
-    COLLISION_MASK_TRAP_SUPERSPIKE  = 1 << 13,
-    COLLISION_MASK_TRAP_TRIGGER     = 1 << 14,
+    // Special tile types with side effects
+    COLLISION_MASK_SPECIAL_WATER    = 1 << 5,
+    COLLISION_MASK_SPECIAL_TOXIC    = 1 << 6,
+    COLLISION_MASK_SPECIAL_SLOW     = 1 << 7,
 
 } CollisionMask;
 
@@ -44,28 +38,24 @@ typedef enum CollisionStyle
 {
     COLLISION_STYLE_NONE = 0,
 
+    // Square
     COLLISION_STYLE_BOUNDING_BOX,
 
+    // Other regular shapes
+    COLLISION_STYLE_DIAMOND,
+    COLLISION_STYLE_OCTAGON,
+
+    // Corners
     COLLISION_STYLE_CORNER_TOP_LEFT,
     COLLISION_STYLE_CORNER_TOP_RIGHT,
     COLLISION_STYLE_CORNER_BOTTOM_LEFT,
     COLLISION_STYLE_CORNER_BOTTOM_RIGHT,
 
-    COLLISION_STYLE_HALF_TOP,
-    COLLISION_STYLE_HALF_BOTTOM,
-    COLLISION_STYLE_HALF_LEFT,
-    COLLISION_STYLE_HALF_RIGHT,
-
-    COLLISION_STYLE_PLATFORM_ONE_WAY,
-    COLLISION_STYLE_PLATFORM_TWO_WAYS,
-
+    // Triangles
     COLLISION_STYLE_SPIKE_UP,
     COLLISION_STYLE_SPIKE_DOWN,
     COLLISION_STYLE_SPIKE_LEFT,
     COLLISION_STYLE_SPIKE_RIGHT,
-
-    COLLISION_STYLE_DIAMOND,
-    COLLISION_STYLE_OCTAGON,
 
     COLLISION_STYLE_MAX,
 
@@ -75,8 +65,6 @@ typedef enum CollisionStyle
 typedef struct CollisionData
 {
     bool collides;
-
-    CollisionMask collision_mask;
 
     sf::Vector2i push_out_vector;
 
@@ -92,8 +80,8 @@ namespace Collision
     /* force is the difference of velocity between the two objects (first_velocity - second_velocity)
      * it is used to get a good direction on CollisionData.push_out_vector
      */
-    void checkCollision(const sf::FloatRect & first_bounds,  CollisionMask first_mask,  CollisionStyle first_style,
-                        const sf::FloatRect & second_bounds, CollisionMask second_mask, CollisionStyle second_style,
+    void checkCollision(const sf::FloatRect & first_bounds,  CollisionStyle first_style,
+                        const sf::FloatRect & second_bounds, CollisionStyle second_style,
                         const sf::Vector2f & force, CollisionData * output);
 }
 

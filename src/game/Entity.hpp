@@ -39,6 +39,10 @@ public:
 
     virtual CollisionStyle  getCollisionStyle() const = 0;
 
+    // The group of collisions of this entity
+    virtual CollisionMask   getCollisionGroup() const = 0;
+
+    // The mask defining which collision groups this entity can collide with
     virtual CollisionMask   getCollisionMask() const = 0;
 
     virtual sf::FloatRect   getBounds() const = 0;

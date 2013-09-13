@@ -29,7 +29,7 @@ typedef struct MapTile
 {
     MapCoord position;
 
-    CollisionMask collision_mask;
+    CollisionMask collision_group;
 
     CollisionStyle collision_style;
 
