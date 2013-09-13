@@ -20,25 +20,26 @@ namespace Resources
     class Resource
     {
     public:
-        Resource(const sf::String & name);
+                            Resource(const sf::String & name);
 
-        bool isReady() const;
+        volatile bool       isReady() const;
 
-        const sf::String & getName() const;
+        const sf::String &  getName() const;
 
-              T & get();
-        const T & get() const;
+              T &           get();
+        const T &           get() const;
 
-        unsigned getReferencesCount() const;
+        unsigned            getReferencesCount() const;
 
-        void lock();    // Increase the reference counter
-        void unlock();  // Decrease the reference counter
+        void                lock();    // Increase the reference counter
+        void                unlock();  // Decrease the reference counter
 
     private:
-        static void doLoad(void * _resource);
+        static void         doLoad(void * _resource);
 
         sf::String          _name;
         volatile bool       _ready;
+        volatile bool       _error;
         T                   _object;
         volatile unsigned   _references; // TODO Concurrent access possible! Should be atomic instead?
 
@@ -51,20 +52,20 @@ namespace Resources
         typedef Resource<T> resource_t;
 
     public:
-        Handle();
-        Handle(resource_t & resource);
-        Handle(const Handle & handle);
+                    Handle();
+                    Handle(resource_t & resource);
+                    Handle(const Handle & handle);
 
-        ~Handle();
+                    ~Handle();
 
-        void reset();
-        void reset(resource_t & resource);
-        void reset(Handle & handle);
+        void        reset();
+        void        reset(resource_t & resource);
+        void        reset(Handle & handle);
 
-        bool isReady() const;
+        bool        isReady() const;
 
-              T & get();
-        const T & get() const;
+              T &   get();
+        const T &   get() const;
 
     private:
         resource_t * _resource;
@@ -79,28 +80,28 @@ namespace Resources
         typedef std::map<sf::String, resource_t *>  resource_map_t;
         typedef typename resource_map_t::iterator   resource_iter_t;
 
-        typedef tthread::fast_mutex         mutex_t;
-        typedef tthread::lock_guard<mutex_t> lock_t;
+        typedef tthread::fast_mutex                 mutex_t;
+        typedef tthread::lock_guard<mutex_t>        lock_t;
 
     public:
         // Find a resource
         // The resource can, but should not be used directly
         // Instead, wrap it with a Handle to count references automatically
-        static resource_t & find(const sf::String & name);
+        static resource_t &     find(const sf::String & name);
 
         // Clean unused ressources
         // This function is rather slow and lock the mutex
         // Use it once, after the handles have been acquired
-        static void clean();
+        static void             clean();
 
         // Clear all ressources
         // Print a warning if a ressource still had references
-        static void clear();
+        static void             clear();
 
     private:
         // Not a class, not a namespace either because of template
         // Private constructor that should never be implemented
-        Manager();
+                                Manager();
 
         static resource_map_t   s_resource_map;
         static mutex_t          s_map_mutex;

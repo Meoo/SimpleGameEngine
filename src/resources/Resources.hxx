@@ -12,17 +12,32 @@
 #include <iostream>
 #endif
 
+#include <stdexcept>
+#include <typeinfo>
+#include <sstream>
+
+namespace
+{
+    void throwResourceLoadException(const sf::String & filename)
+    {
+        std::ostringstream string;
+        string << "Error while loading resource file : " << filename.toAnsiString();
+
+        throw std::runtime_error(string.str());
+    }
+}
+
 // Resource
 
 template<class T> inline
 Resources::Resource<T>::Resource(const sf::String & name)
-    : _name(name), _references(0)
+    : _name(name), _ready(false), _error(false), _references(0)
 {
     Async::run(Resource<T>::doLoad, this);
 }
 
 template<class T> inline
-bool Resources::Resource<T>::isReady() const
+volatile bool Resources::Resource<T>::isReady() const
 {
     return _ready;
 }
@@ -36,14 +51,26 @@ const sf::String & Resources::Resource<T>::getName() const
 template<class T> inline
 T & Resources::Resource<T>::get()
 {
-    while (!isReady());
+    while (!isReady())
+    {
+        if (_error)
+            throwResourceLoadException(getName());
+
+        tthread::this_thread::yield();
+    }
     return _object;
 }
 
 template<class T> inline
 const T & Resources::Resource<T>::get() const
 {
-    while (!isReady());
+    while (!isReady())
+    {
+        if (_error)
+            throwResourceLoadException(getName());
+
+        tthread::this_thread::yield();
+    }
     return _object;
 }
 
@@ -73,13 +100,10 @@ void Resources::Resource<T>::doLoad(void * _resource)
     {
         resource->_ready = true;
     }
-#ifndef NDEBUG
-    // TODO Better critical error handling when NDEBUG
     else
     {
-        std::cerr << "ERROR while loading file : " << (resource->_name).toAnsiString() << std::endl;
+        resource->_error = true;
     }
-#endif
 }
 
 // Handle
