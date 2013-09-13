@@ -34,7 +34,7 @@ public:
 
 private:
     typedef std::vector<const Entity *> EntityList;
-    typedef EntityList::iterator        EntityIterator;
+    typedef EntityList::const_iterator  EntityIterator;
 
     // entity_bounds is cached by pushEntity
     void    pushEntityInternal(const Entity * entity, const sf::IntRect & entity_bounds);
@@ -53,7 +53,7 @@ private:
     Quadtree *      _subtree_bottom_left;
     Quadtree *      _subtree_bottom_right;
 
-    EntityList *    _entities;
+    EntityList      _entities;
 
 };
 

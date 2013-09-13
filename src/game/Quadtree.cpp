@@ -37,9 +37,6 @@ Quadtree::Quadtree(const sf::IntRect & bounds, unsigned depth)
     if ((unsigned) _bounds.width <= QUADTREE_MINIMUM_SIZE
      || (unsigned) _bounds.height <= QUADTREE_MINIMUM_SIZE)
         _depth = 0;
-
-    if (_depth == 0)
-        _entities = new EntityList();
 }
 
 Quadtree::~Quadtree()
@@ -48,7 +45,6 @@ Quadtree::~Quadtree()
     delete _subtree_top_right;
     delete _subtree_bottom_left;
     delete _subtree_bottom_right;
-    delete _entities;
 }
 
 void Quadtree::pushEntity(const Entity * entity)
@@ -60,14 +56,14 @@ void Quadtree::pushEntityInternal(const Entity * entity, const sf::IntRect & ent
 {
     if (_depth == 0)
     {
-        _entities->push_back(entity);
+        _entities.push_back(entity);
         return;
     }
     // Ok so the creation of subtrees is tricky
     // Top left block size is (b.width / 2, b.height / 2)
     // Bottom right block size is (b.width -b.width / 2, b.height - b.height / 2)
     //   and have the offset (b.width / 2, b.height / 2) from the origin (b.left, b.top)
-    // TODO Check that the implementation is correct... I have totally no idea if it does work
+    // TODO Check that the implementation is correct... After some tests it looks like everything is ok...
 
     if (entity_bounds.left < _horizontal_middle)
     {
@@ -119,8 +115,8 @@ void Quadtree::process(CallbackFunction callback_function) const
 {
     if (_depth == 0)
     {
-        for (EntityIterator it = _entities->begin(); it != _entities->end(); ++it)
-            for (EntityIterator it2 = (it + 1); it2 != _entities->end(); ++it2)
+        for (EntityIterator it = _entities.begin(); it != _entities.end(); ++it)
+            for (EntityIterator it2 = (it + 1); it2 != _entities.end(); ++it2)
                 callback_function(*it, *it2);
     }
     else
@@ -148,7 +144,7 @@ void Quadtree::processSingleEntityInternal(const Entity* entity, CallbackFunctio
 {
     if (_depth == 0)
     {
-        for (EntityIterator it = _entities->begin(); it != _entities->end(); ++it)
+        for (EntityIterator it = _entities.begin(); it != _entities.end(); ++it)
             callback_function(entity, *it);
     }
     else
