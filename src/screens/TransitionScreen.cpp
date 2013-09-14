@@ -61,9 +61,11 @@ Screen * TransitionScreen::update(sf::Time elapsed_time)
         }
     }
 
-    sf::Color color = _fade_screen.getFillColor();
-    color.a = sf::Uint8((_timeout.asSeconds() / _time.asSeconds()) * 255);
-    _fade_screen.setFillColor(color);
+    {
+        sf::Color color = _fade_screen.getFillColor();
+        color.a = sf::Uint8((_timeout.asSeconds() / _time.asSeconds()) * 255);
+        _fade_screen.setFillColor(color);
+    }
     return 0;
 }
 
