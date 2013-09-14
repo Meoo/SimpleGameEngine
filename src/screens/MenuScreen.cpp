@@ -26,7 +26,7 @@ MenuScreen::MenuScreen()
     : _choice(CHOICE_PENDING), _selection(CHOICE_NEW_GAME)
     , _font(FontManager::find(RESOURCES_DEFAULT_FONT))
     , _background(TextureManager::find(MENU_BACKGROUND))
-    , _prepare_once(true)
+    , _prepare_once(true), _in_submenu(false)
 {
 }
 
@@ -83,6 +83,7 @@ Screen * MenuScreen::update(sf::Time elapsed_time)
         return 0;
 
     case CHOICE_OPTIONS:
+        _in_submenu = true;
         _choice = CHOICE_PENDING;
         return new OptionsScreen(this);
 
@@ -90,7 +91,7 @@ Screen * MenuScreen::update(sf::Time elapsed_time)
         throw EXCEPTION_EXIT;
 
     default:
-        _choice = CHOICE_PENDING;
+        _in_submenu = false;
         return 0;
     }
 }
@@ -98,6 +99,8 @@ Screen * MenuScreen::update(sf::Time elapsed_time)
 void MenuScreen::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
     target.draw(_background_sprite);
+
+    if (_in_submenu) return;
 
     {
         sf::Text text_new(_text_new);

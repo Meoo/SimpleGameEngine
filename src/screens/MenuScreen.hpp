@@ -43,6 +43,8 @@ private:
 
     bool            _prepare_once;
 
+    bool            _in_submenu;
+
     sf::Sprite      _background_sprite;
     sf::Text        _text_new;
     sf::Text        _text_load;
