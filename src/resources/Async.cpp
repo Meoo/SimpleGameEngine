@@ -113,6 +113,8 @@ namespace
     // Main function for workers
     void worker_main(void * _worker_num)
     {
+        // int worker_num = reinterpret_cast<int>(_worker_num);
+
         while(!kill_workers)
         {
             volatile job_t * job = acquire_job();
@@ -130,8 +132,6 @@ void Async::initialize()
 {
     assert(!ready);
     assert((ready = true));
-
-    assert(!RESOURCES_THREADING || (RESOURCES_JOBS_MAX >= 32 && RESOURCES_WORKERS_MAX >= 1));
 
     if (!RESOURCES_THREADING)
         return;
@@ -152,7 +152,7 @@ void Async::initialize()
 
     for (unsigned wi = 0; wi < RESOURCES_WORKERS_MAX; ++wi)
     {
-        worker_pool[wi] = new tthread::thread(worker_main, (void *) wi);
+        worker_pool[wi] = new tthread::thread(worker_main, reinterpret_cast<void *>(wi));
     }
 }
 
