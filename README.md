@@ -14,18 +14,9 @@ Features
 Different game states are handled using "Screens".
 
 
-### Asynchronous tasks ###
-
-Run tasks on a secondary thread.
-
-
-### Resources managing ###
-
-Create resources handles from a manager, and the file will be loaded automatically on a secondary thread.
-If the resource is not ready when you need it, the game will freeze until it is
-
-
 ### Sprite animations ###
+
+TBD
 
 
 ### Physics engine ###
@@ -40,13 +31,24 @@ TBD
 TBD
 
 
-Planned features
-----------------
-
 ### Doxygen documentation ###
 
 TBD
 
+
+### Asynchronous tasks ###
+
+Run tasks on a secondary thread.
+
+
+### Resources managing ###
+
+Create resources handles from a manager, and the file will be loaded automatically on a secondary thread.
+If the resource is not ready when you need it, the game will freeze until it is
+
+
+Planned features
+----------------
 
 ### Networking ###
 
