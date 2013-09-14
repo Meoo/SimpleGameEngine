@@ -10,6 +10,7 @@
 #include "screens/IntroScreen.hpp"
 #include "resources/Async.hpp"
 #include "resources/Resources.hpp"
+#include "resources/Manager.hpp"
 
 #ifndef NDEBUG
 #include <iostream>
@@ -22,11 +23,13 @@ int main(int argc, char ** argv)
     // Start resources system
     Async::initialize();
 
+    // Preload default font (used in Pause screen)
     FontHandle font_handle(FontManager::find(RESOURCES_DEFAULT_FONT));
 
     // Create first screen : Intro
     Screen * current_screen = new IntroScreen();
 
+    // Prepare render window
     sf::RenderWindow window;
 
     // Handle window restart (to change resolution, set to fullscreen...)
@@ -201,8 +204,7 @@ int main(int argc, char ** argv)
 
     // Clean resources properly
     // If debug is enabled, issue warning when ressources are still referenced
-    TextureManager::clear();
-    FontManager::clear();
+    GlobalManager::cleanAndClear();
 
     return 0;
 }

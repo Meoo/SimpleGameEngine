@@ -9,6 +9,8 @@
 #include <fstream>
 #include <sstream>
 
+#include "resources/Manager.hpp"
+
 AnimationSet::AnimationSet()
     : _animation_number(0), _animations(0)
 {
@@ -194,3 +196,5 @@ TileId AnimationInstance::getTileId() const
 {
     return _current_tile_id;
 }
+
+RESOURCES_REGISTER_MANAGER(AnimationSetManager);

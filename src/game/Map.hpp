@@ -95,7 +95,4 @@ private:
 
 };
 
-typedef Resources::Handle<Map>  MapHandle;
-typedef Resources::Manager<Map> MapManager;
-
 #endif // _MAP_HPP_
