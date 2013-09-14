@@ -33,7 +33,7 @@ void GameScreen::onKeyPressed(sf::Keyboard::Key key)
         animi.resetAnimation(anim.get().getAnimationId("walk_right"));
 }
 
-void GameScreen::draw(sf::RenderTarget& target, sf::RenderStates states) const
+void GameScreen::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
     sf::IntRect texrect = tileset.getTextureRect(animi.getTileId());
     sf::Sprite sprite(texture.get(), texrect);

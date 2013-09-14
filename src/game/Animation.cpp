@@ -5,7 +5,7 @@
 
 #include "game/Animation.hpp"
 
-#include <cassert>
+#include <stdexcept>
 #include <fstream>
 #include <sstream>
 
@@ -92,7 +92,7 @@ bool AnimationSet::loadFromFile(const sf::String & filename)
         while (text != std::string("END"))
         {
             // Frames
-            std::stringstream str(text);
+            std::istringstream str(text);
             TileId frame;
             str >> frame;
             frames.push_back(frame);
@@ -140,7 +140,8 @@ bool AnimationSet::loadFromFile(const sf::String & filename)
 
 Animation::Id AnimationSet::getAnimationId(const sf::String & animation_name) const
 {
-    assert(_animations);
+    if (!_animations)
+        throw std::logic_error("AnimationSet::getAnimationId : No animations avaiable");
 
     for (unsigned ai = 0; ai < _animation_number; ++ai)
     {
@@ -148,8 +149,11 @@ Animation::Id AnimationSet::getAnimationId(const sf::String & animation_name) co
             return ai;
     }
 
-    assert(false);
-    return -1;
+    {
+        std::ostringstream str;
+        str << "AnimationSet::getAnimationId : Animation `" << animation_name.toAnsiString() << "` not found";
+        throw std::logic_error(str.str());
+    }
 }
 
 const Animation& AnimationSet::getAnimation(Animation::Id id) const

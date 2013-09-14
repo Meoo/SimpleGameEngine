@@ -5,7 +5,7 @@
 
 #include "screens/OptionsScreen.hpp"
 
-#include <cstdio>
+#include <sstream>
 #include <cassert>
 
 #include "Config.hpp"
@@ -119,8 +119,6 @@ void OptionsScreen::draw(sf::RenderTarget & target, sf::RenderStates states) con
     rect.setFillColor(col);
     target.draw(rect);
 
-    char buffer[256];
-
     sf::Text text;
     text.setCharacterSize(36);
     text.setFont(_font.get());
@@ -146,8 +144,11 @@ void OptionsScreen::draw(sf::RenderTarget & target, sf::RenderStates states) con
     DRAW_TEXT(RESOLUTION, -220, -180);
 
     sf::VideoMode mode = _modes.at(_current_mode);
-    std::snprintf(buffer, 256, "< %dx%d >", mode.width, mode.height);
-    text.setString(sf::String(buffer));
+    {
+        std::ostringstream txt;
+        txt << "< " << mode.width << "x" << mode.height << " >";
+        text.setString(txt.str());
+    }
     DRAW_TEXT(RESOLUTION, 220, -180);
 
 
@@ -167,6 +168,7 @@ void OptionsScreen::draw(sf::RenderTarget & target, sf::RenderStates states) con
         text.setString(MENU_FULLSCREEN);
         break;
     default:
+        // Should never happen
         assert(false);
         break;
     }

@@ -62,6 +62,10 @@ const sf::String INTRO_SUBTITLE     ("Made by Bastien Brunnenstein");
 /**@}*/
 
 
+/** Error title in case of exception */
+const sf::String EXCEPTION_TITLE    ("EXCEPTION");
+
+
 /** @name Resources and workers configuration */
 /**@{*/
 
