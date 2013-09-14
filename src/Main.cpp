@@ -171,13 +171,16 @@ int main(int argc, char ** argv)
                 exception_happened = true;
                 Config::pause_enabled = false;
 
-                // TODO Should not be deleted
+                // TODO Should not be deleted, dumped maybe
                 delete current_screen;
                 current_screen = new ExceptionScreen(e);
             }
             catch (const Exception & e)
             {
-                std::cerr << "Integer exception caught!" << std::endl;
+#ifndef NDEBUG
+                // Not critical, only display on DEBUG
+                std::cerr << "Special exception " << e << " caught!" << std::endl;
+#endif
                 switch(e)
                 {
                 case EXCEPTION_EXIT:
@@ -193,7 +196,19 @@ int main(int argc, char ** argv)
             catch(...)
             {
                 std::cerr << "Unknown exception caught!" << std::endl;
-                window.close();
+
+                if (exception_happened)
+                {
+                    window.close();
+                    break;
+                }
+
+                exception_happened = true;
+                Config::pause_enabled = false;
+
+                // TODO Should not be deleted, dumped maybe
+                delete current_screen;
+                current_screen = new ExceptionScreen(std::runtime_error("Unknown exception caught!"));
             }
 
 #ifndef NDEBUG
