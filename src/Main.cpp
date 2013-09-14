@@ -8,8 +8,8 @@
 #include "Config.hpp"
 #include "screens/Screen.hpp"
 #include "screens/IntroScreen.hpp"
+#include "screens/PauseScreen.hpp"
 #include "resources/Async.hpp"
-#include "resources/Resources.hpp"
 #include "resources/Manager.hpp"
 
 #ifndef NDEBUG
@@ -23,35 +23,20 @@ int main(int argc, char ** argv)
     // Start resources system
     Async::initialize();
 
-    // Preload default font (used in Pause screen)
-    FontHandle font_handle(FontManager::find(RESOURCES_DEFAULT_FONT));
-
     // Create first screen : Intro
     Screen * current_screen = new IntroScreen();
 
     // Prepare render window
     sf::RenderWindow window;
 
+    // Pause screen
+    bool pause_screen_active = false;
+
     // Handle window restart (to change resolution, set to fullscreen...)
     bool restart = true;
     while(restart)
     {
         restart = false;
-
-        // Pause variables and drawables
-        bool pause = false;
-
-        sf::RectangleShape pause_black_screen(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
-        sf::Text pause_text(PAUSE_TITLE, font_handle.get(), 100);
-        sf::Text pause_text2(PAUSE_SUBTITLE, font_handle.get(), 50);
-        pause_text.setStyle(sf::Text::Bold);
-        pause_black_screen.setFillColor(sf::Color(0, 0, 0, 128));
-        pause_text.setOrigin(pause_text.getLocalBounds().width/2, pause_text.getLocalBounds().height/2);
-        pause_text2.setOrigin(pause_text2.getLocalBounds().width/2, pause_text2.getLocalBounds().height/2);
-        pause_text.setColor(sf::Color::White);
-        pause_text2.setColor(sf::Color::White);
-        pause_text.setPosition(WINDOW_WIDTH/2, WINDOW_HEIGHT/2 - 90);
-        pause_text2.setPosition(WINDOW_WIDTH/2, WINDOW_HEIGHT/2 + 60);
 
         // Create window
         window.create(sf::VideoMode(Config::width, Config::height), WINDOW_TITLE,
@@ -93,10 +78,12 @@ int main(int argc, char ** argv)
                 {
                 case sf::Event::KeyPressed:
 
-                    // Toggle pause with P
-                    if (event.key.code == sf::Keyboard::P)
+                    // Toggle pause with PAUSE_KEY
+                    if (!pause_screen_active && Config::pause_enabled
+                        && event.key.code == PAUSE_KEY)
                     {
-                        pause = !pause;
+                        current_screen = new PauseScreen(current_screen);
+                        pause_screen_active = true;
                         continue;
                     }
 
@@ -107,13 +94,16 @@ int main(int argc, char ** argv)
                         continue;
                     }
 
-                    if (!pause)
-                        current_screen->onKeyPressed(event.key.code);
+                    current_screen->onKeyPressed(event.key.code);
                     break;
 
                 // Pause automatically if the focus is lost
                 case sf::Event::LostFocus:
-                    pause = true;
+                    if (!pause_screen_active && Config::pause_enabled)
+                    {
+                        current_screen = new PauseScreen(current_screen);
+                        pause_screen_active = true;
+                    }
                     break;
 
                 // Quit if the window is closed
@@ -135,30 +125,30 @@ int main(int argc, char ** argv)
                 elapsed_time = UPDATE_MAX_DELTA;
 
             // Update
-            if (!pause)
+            try
             {
-                try
+                // Whenever a new screen is selected, update it before rendering
+                Screen * next_screen;
+                while((next_screen = current_screen->update(elapsed_time)) != 0)
                 {
-                    // Whenever a new screen is selected, update it before rendering
-                    Screen * next_screen;
-                    while((next_screen = current_screen->update(elapsed_time)) != 0)
-                    {
-                        current_screen = next_screen;
-                    }
-                }
-                catch (const Exception & e)
-                {
-                    switch(e)
-                    {
-                    case EXCEPTION_EXIT:
-                        window.close();
-                        break;
+                    if (pause_screen_active)
+                        pause_screen_active = false;
 
-                    case EXCEPTION_RESTART:
-                        window.close();
-                        restart = true;
-                        break;
-                    }
+                    current_screen = next_screen;
+                }
+            }
+            catch (const Exception & e)
+            {
+                switch(e)
+                {
+                case EXCEPTION_EXIT:
+                    window.close();
+                    break;
+
+                case EXCEPTION_RESTART:
+                    window.close();
+                    restart = true;
+                    break;
                 }
             }
 
@@ -168,14 +158,6 @@ int main(int argc, char ** argv)
 #endif
 
             window.draw(*current_screen);
-
-            // Draw pause screen
-            if (pause)
-            {
-                window.draw(pause_black_screen);
-                window.draw(pause_text);
-                window.draw(pause_text2);
-            }
 
             // Display
             window.display();
@@ -195,9 +177,6 @@ int main(int argc, char ** argv)
 
     // Delete the current_screen
     delete current_screen;
-
-    // Release the default font (used for Pause screen)
-    font_handle.reset();
 
     // Release resources and workers
     Async::terminate();

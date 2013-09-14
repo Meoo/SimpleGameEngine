@@ -75,6 +75,11 @@ Screen * MenuScreen::update(sf::Time elapsed_time)
     switch(_choice)
     {
     case CHOICE_NEW_GAME:
+
+        // Enable pause when starting the game
+        if (PAUSE_ENABLED)
+            Config::pause_enabled = true;
+
         _choice = CHOICE_MAX;
         return new TransitionScreen(this, new GameScreen(), sf::seconds(0.5f), sf::Color::White, true);
 

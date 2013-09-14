@@ -7,6 +7,7 @@
 #define _CONFIG_HPP_
 
 #include <SFML/System/String.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Time.hpp>
 
@@ -33,8 +34,13 @@ const unsigned   WINDOW_FRAMERATE   = 60;
 /** @name Pause screen configuration */
 /**@{*/
 
+/** Enable pause when in-game */
+const bool       PAUSE_ENABLED      = true;
+
 const sf::String PAUSE_TITLE        ("PAUSE");
 const sf::String PAUSE_SUBTITLE     ("Press P to resume the game");
+
+const sf::Keyboard::Key PAUSE_KEY   = sf::Keyboard::P;
 
 /**@}*/
 
@@ -134,6 +140,9 @@ namespace Config
     extern unsigned   height;       // = WINDOW_HEIGHT
     extern bool       fullscreen;   // = WINDOW_FULLSCREEN
     extern bool       borderless;   // = WINDOW_BORDERLESS
+
+    /** Allow to control the pause function */
+    extern bool       pause_enabled; // = false
 
     /** Save current configuration in CONFIG_FILE. */
     void save();

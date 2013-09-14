@@ -14,6 +14,8 @@ namespace Config
     unsigned   height      = WINDOW_HEIGHT;
     bool       fullscreen  = WINDOW_FULLSCREEN;
     bool       borderless  = WINDOW_BORDERLESS;
+
+    bool       pause_enabled = false;
 }
 
 void Config::save()
