@@ -19,6 +19,7 @@
 
 #ifndef NDEBUG
 #include <iostream>
+#include <iomanip>
 #endif
 
 int main(int argc, char ** argv)
@@ -40,9 +41,21 @@ int main(int argc, char ** argv)
     // Prevent recursive exceptions
     bool exception_happened = false;
 
+#ifndef NDEBUG
+    // Total runtime FPS counter
+    sf::Clock total_clock;
+    unsigned total_fps_counter = 0;
+
+    // Performance counters
+    sf::Time perf_event;
+    sf::Time perf_update;
+    sf::Time perf_draw;
+    sf::Time perf_display;
+#endif
+
     // Handle window restart (to change resolution, set to fullscreen...)
     bool restart = true;
-    while(restart)
+    while (restart)
     {
         restart = false;
 
@@ -68,6 +81,7 @@ int main(int argc, char ** argv)
 
         // Start global clock
         sf::Clock global_clock;
+        sf::Time time_last_frame;
 
 #ifndef NDEBUG
         // FPS counter
@@ -80,6 +94,10 @@ int main(int argc, char ** argv)
         {
             try
             {
+#ifndef NDEBUG
+                perf_event -= total_clock.getElapsedTime();
+#endif
+
                 // Events
                 sf::Event event;
                 while (window.pollEvent(event))
@@ -126,17 +144,27 @@ int main(int argc, char ** argv)
                     }
                 }
 
+#ifndef NDEBUG
+                perf_event += total_clock.getElapsedTime();
+#endif
+
+
                 // Handle clock
-                sf::Time elapsed_time = global_clock.getElapsedTime();
-                global_clock.restart();
+                sf::Time time_now = global_clock.getElapsedTime();
+                sf::Time elapsed_time = time_now - time_last_frame;
+                time_last_frame = time_now;
 
                 // Cap elapsed time
                 if (elapsed_time > UPDATE_MAX_DELTA)
                     elapsed_time = UPDATE_MAX_DELTA;
 
 
-                // Update
+#ifndef NDEBUG
+                perf_update -= total_clock.getElapsedTime();
+#endif
 
+
+                // Update
                 // Whenever a new screen is selected, update it before rendering
                 Screen * next_screen;
                 while((next_screen = current_screen->update(elapsed_time)) != 0)
@@ -146,19 +174,36 @@ int main(int argc, char ** argv)
 
                     current_screen = next_screen;
                 }
-
-
 #ifndef NDEBUG
-                // Debug green screen
-                window.clear(sf::Color::Green);
+                perf_update += total_clock.getElapsedTime();
+                perf_draw -= total_clock.getElapsedTime();
+
+                // Debug background
+                // It changes color so you can easily see if there is a visual leak on the screen
+                {
+                    sf::RectangleShape background(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
+                    background.setFillColor(sf::Color(
+                            std::abs(((total_clock.getElapsedTime().asMilliseconds() / 11) % 510) - 255),
+                            std::abs(((total_clock.getElapsedTime().asMilliseconds() / 36) % 510) - 255),
+                            std::abs(((total_clock.getElapsedTime().asMilliseconds() / 24) % 510) - 255)));
+                    window.draw(background);
+                }
 #endif
 
                 // Draw
                 window.draw(*current_screen);
 
+#ifndef NDEBUG
+                perf_draw += total_clock.getElapsedTime();
+                perf_display -= total_clock.getElapsedTime();
+#endif
 
                 // Display
                 window.display();
+
+#ifndef NDEBUG
+                perf_display += total_clock.getElapsedTime();
+#endif
 
             }
             catch (const std::exception & e)
@@ -219,10 +264,24 @@ int main(int argc, char ** argv)
                 fps_clock.restart();
                 fps_counter = 0;
             }
+            ++total_fps_counter;
 #endif
-        }
+        } // while (window.isOpen())
 
-    } // while(restart)
+    } // while (restart)
+
+#ifndef NDEBUG
+    sf::Time perf_total = total_clock.getElapsedTime();
+
+    std::cout << "Average FPS : " << (total_fps_counter / perf_total.asSeconds()) << std::endl
+              << "Time elapsed in the different sections (in %) :" << std::endl
+              << std::setprecision(1) << std::fixed
+              << "Events  : " << (perf_event / perf_total) * 100 << std::endl
+              << "Update  : " << (perf_update / perf_total) * 100 << std::endl
+              << "Draw    : " << (perf_draw / perf_total) * 100 << std::endl
+              << "Display : " << (perf_display / perf_total) * 100 << std::endl
+              << "Other   : " << (1 - (perf_event + perf_update + perf_draw + perf_display) / perf_total) * 100 << std::endl;
+#endif
 
     // Delete the current_screen
     delete current_screen;
