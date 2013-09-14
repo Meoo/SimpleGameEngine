@@ -7,6 +7,8 @@ local SFML_INC_DIR = "D:/Prog/SFML2/include"
 local SFML_LIB_DIR = "D:/Prog/SFML2/bin/lib"
 local SFML_STATIC  = true
 
+local GPROF = false
+
 function sfml_links(tab, dbg, static)
     local suffix = (static and "-s" or "") .. (dbg and "-d" or "")
     for _, v in pairs(tab) do
@@ -24,6 +26,11 @@ solution "SimpleGameEngine"
   libdirs { SFML_LIB_DIR }
 
   flags { "ExtraWarnings", "FatalWarnings", "NoRTTI", "NoPCH" }
+  
+  if GPROF then
+  	buildoptions { "-pg" }
+  	linkoptions { "-pg" }
+  end
 
   configuration "Debug"
     flags { "Symbols" }
@@ -51,10 +58,10 @@ project "SGE"
 
   configuration "Release"
     kind "WindowedApp"
-    sfml_links(sfml_libs, false, SFML_STATIC)
+    sfml_links(sfml_libs, true, SFML_STATIC)
 
   configuration "Windows"
-    linkoptions "-static-libgcc"
+    --linkoptions "-static-libgcc"
 
   configuration "not Windows"
     -- may require sndfile and openal
