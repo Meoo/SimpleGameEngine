@@ -161,6 +161,9 @@ void Async::terminate()
     assert(ready);
     assert(!(ready = false));
 
+    if (!RESOURCES_THREADING)
+        return;
+
     kill_workers = true;
     jobs_condition.notify_all();
 
