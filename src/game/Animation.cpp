@@ -6,6 +6,7 @@
 #include "game/Animation.hpp"
 
 #include <stdexcept>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 
