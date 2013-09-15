@@ -3,6 +3,7 @@
  * @author Bastien Brunnenstein
  */
 
+#include <iostream>
 #include <exception>
 
 #include <SFML/Graphics.hpp>
@@ -18,7 +19,6 @@
 #include "resources/Manager.hpp"
 
 #ifndef NDEBUG
-#include <iostream>
 #include <iomanip>
 #endif
 
