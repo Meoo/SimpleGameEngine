@@ -180,14 +180,10 @@ int main(int argc, char ** argv)
 
                 // Debug background
                 // It changes color so you can easily see if there is a visual leak on the screen
-                {
-                    sf::RectangleShape background(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
-                    background.setFillColor(sf::Color(
-                            std::abs(((total_clock.getElapsedTime().asMilliseconds() / 11) % 510) - 255),
-                            std::abs(((total_clock.getElapsedTime().asMilliseconds() / 36) % 510) - 255),
-                            std::abs(((total_clock.getElapsedTime().asMilliseconds() / 24) % 510) - 255)));
-                    window.draw(background);
-                }
+                window.clear(sf::Color(
+                    std::abs(((total_clock.getElapsedTime().asMilliseconds() / 11) % 510) - 255),
+                    std::abs(((total_clock.getElapsedTime().asMilliseconds() / 36) % 510) - 255),
+                    std::abs(((total_clock.getElapsedTime().asMilliseconds() / 24) % 510) - 255)));
 #endif
 
                 // Draw
