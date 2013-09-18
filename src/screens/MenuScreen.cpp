@@ -93,7 +93,7 @@ Screen * MenuScreen::update(sf::Time elapsed_time)
         return new OptionsScreen(this);
 
     case CHOICE_QUIT:
-        throw ExitException;
+        throw ExitException();
 
     default:
         _in_submenu = false;

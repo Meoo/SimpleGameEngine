@@ -93,7 +93,7 @@ Screen * OptionsScreen::update(sf::Time elapsed_time)
 
         // Recreate the window then go back to previous screen
         _choice = CHOICE_CANCEL;
-        throw RestartException;
+        throw RestartException();
 
     case CHOICE_CANCEL:
         {

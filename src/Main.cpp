@@ -238,9 +238,7 @@ int main(int argc, char ** argv)
                 exception_happened = true;
                 Config::pause_enabled = false;
 
-                // TODO Should not be deleted, dumped maybe
-                delete current_screen;
-                current_screen = new ExceptionScreen(std::runtime_error("Unknown exception caught!"));
+                current_screen = new ExceptionScreen(std::runtime_error("Unknown exception caught!"), current_screen);
             }
 
 #ifndef NDEBUG
