@@ -7,9 +7,10 @@
 
 #include "Config.hpp"
 
-ExceptionScreen::ExceptionScreen(const std::exception & exception)
+ExceptionScreen::ExceptionScreen(const std::exception & exception, Screen * last_screen)
     : _font_handle(FontManager::find(RESOURCES_DEFAULT_FONT))
     , _blue_screen(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT))
+    , _last_screen(last_screen)
 {
     _blue_screen.setFillColor(sf::Color::Blue);
 
@@ -26,6 +27,11 @@ ExceptionScreen::ExceptionScreen(const std::exception & exception)
     _text2.setFont(_font_handle.get());
     _text1.setOrigin(_text1.getLocalBounds().width/2, _text1.getLocalBounds().height/2);
     _text2.setOrigin(_text2.getLocalBounds().width/2, _text2.getLocalBounds().height/2);
+}
+
+ExceptionScreen::~ExceptionScreen()
+{
+    delete _last_screen;
 }
 
 Screen * ExceptionScreen::update(sf::Time elapsed_time)

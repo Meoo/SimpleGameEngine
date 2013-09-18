@@ -202,6 +202,17 @@ int main(int argc, char ** argv)
 #endif
 
             }
+            catch (const ExitException & e)
+            {
+                window.close();
+                break;
+            }
+            catch (const RestartException & e)
+            {
+                window.close();
+                restart = true;
+                break;
+            }
             catch (const std::exception & e)
             {
                 std::cerr << "Exception caught : " << e.what() << std::endl;
@@ -212,27 +223,7 @@ int main(int argc, char ** argv)
                 exception_happened = true;
                 Config::pause_enabled = false;
 
-                // TODO Should not be deleted, dumped maybe
-                delete current_screen;
-                current_screen = new ExceptionScreen(e);
-            }
-            catch (const Exception & e)
-            {
-#ifndef NDEBUG
-                // Not critical, only display on DEBUG
-                std::cerr << "Special exception " << e << " caught!" << std::endl;
-#endif
-                switch(e)
-                {
-                case EXCEPTION_EXIT:
-                    window.close();
-                    break;
-
-                case EXCEPTION_RESTART:
-                    window.close();
-                    restart = true;
-                    break;
-                }
+                current_screen = new ExceptionScreen(e, current_screen);
             }
             catch(...)
             {

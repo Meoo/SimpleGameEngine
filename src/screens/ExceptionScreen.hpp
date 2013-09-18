@@ -15,24 +15,25 @@
 class ExceptionScreen : public Screen
 {
 public:
-    ExceptionScreen(const std::exception & exception);
+                        ExceptionScreen(const std::exception & exception, Screen * last_screen);
 
-    virtual ~ExceptionScreen() {}
+    virtual             ~ExceptionScreen();
 
-    virtual Screen * update(sf::Time elapsed_time);
+    Screen *            update(sf::Time elapsed_time);
 
 protected:
-    virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+    void                draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 private:
-    sf::Text _text1;
+    sf::Text            _text1;
 
-    sf::Text _text2;
+    sf::Text            _text2;
 
-    FontHandle _font_handle;
+    FontHandle          _font_handle;
 
-    sf::RectangleShape _blue_screen;
+    sf::RectangleShape  _blue_screen;
 
+    Screen *            _last_screen;
 
 };
 

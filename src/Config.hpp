@@ -115,26 +115,26 @@ const sf::String MENU_NO            ("No");
 
 
 /**
- * Special exceptions that can be thrown, usually from screens.
+ * @name Special exceptions that can be thrown, usually from screens.
  *
- * They are caught by the main loop.
+ * They are caught by the main loop, and provoke special behaviors.
  */
-typedef enum Exception
-{
-    /**
-     * Exception that cause the application to be closed.
-     */
-    EXCEPTION_EXIT,
+/**@{*/
 
-    /**
-     * Exception that cause the re-creation of game windows when thrown.
-     *
-     * Used to change the game resolution or window mode.
-     * For example, you can't switch to fullscreen without closing the window.
-     */
-    EXCEPTION_RESTART,
+/**
+ * Exception that cause the application to be closed.
+ */
+class ExitException {};
 
-} Exception;
+/**
+ * Exception that cause the re-creation of game windows when thrown.
+ *
+ * Used to change the game resolution or window mode.
+ * For example, you can't switch to fullscreen without closing the window.
+ */
+class RestartException {};
+
+/**@}*/
 
 
 /** Configuration variables and functions. */
