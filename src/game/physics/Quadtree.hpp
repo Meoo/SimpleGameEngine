@@ -8,9 +8,11 @@
 
 #include <vector>
 
-class Entity;
-
 #include <SFML/Graphics/Rect.hpp>
+
+#include "game/physics/SpacePartitioner.hpp"
+
+class Entity;
 
 
 /**
@@ -39,11 +41,11 @@ const unsigned   QUADTREE_DEFAULT_DEPTH = 3u;
 
 
 /**
- * Space partitionner using a quadtree.
+ * Space partitioner using a quadtree.
  *
  * Allow a quicker resolution of collisions by grouping entities spatially.
  */
-class Quadtree
+class Quadtree : public SpacePartitioner // TODO Quadtree must be redone using SpacePartitioner functions
 {
 public:
     typedef void (*CallbackFunction) (const Entity * first, const Entity * second);

@@ -3,13 +3,14 @@
  * @author Bastien Brunnenstein
  */
 
-#include "game/Quadtree.hpp"
+#include "game/physics/Quadtree.hpp"
 
 #include <cmath>
 
 #include "Config.hpp"
-#include "game/Entity.hpp"
+#include "game/entities/Entity.hpp"
 
+/*
 namespace
 {
     inline sf::IntRect calcBounds(const Entity * entity)
@@ -183,3 +184,4 @@ void Quadtree::processSingleEntityInternal(const Entity* entity, CallbackFunctio
         }
     }
 }
+*/

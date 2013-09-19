@@ -8,34 +8,20 @@
 
 #include <SFML/System/String.hpp>
 
-#include "game/Collisions.hpp"
-#include "game/Tileset.hpp"
+#include "game/physics/Body.hpp"
 #include "resources/Resources.hpp"
 
-class Entity;
-
-// Coordinates, in tiles
-typedef struct MapCoord
-{
-    int x;
-
-    int y;
-
-} MapCoord;
+#include "game/Tileset.hpp"
 
 //----
 
-typedef struct MapTile
+typedef struct MapOffset
 {
-    MapCoord position;
+    unsigned    x;
 
-    CollisionMask collision_group;
+    unsigned    y;
 
-    CollisionStyle collision_style;
-
-    TileId tile;
-
-} MapTile;
+} MapOffset;
 
 //----
 
@@ -43,7 +29,7 @@ typedef struct MapInfo
 {
     sf::String  filename;
 
-    MapCoord    offset;
+    MapOffset   offset;
 
 } MapInfo;
 
@@ -56,26 +42,26 @@ public:
 
                 Map();
 
-                ~Map();
+                ~Map() {}
 
     bool        loadFromFile(const sf::String & filename);
 
     // Populate this Map in the World, creating entities and running scripts
-    void        populate(const MapCoord & map_offset) const;
+    void        populate(const MapOffset & map_offset) const;
 
 
     unsigned    getWidth() const;
 
     unsigned    getHeight() const;
 
-    const MapTile & getTile(unsigned x, unsigned y) const;
+    // TODO const MapTile & getTile(unsigned x, unsigned y) const;
 
     const MapSurroundings & getSurroundingMaps() const;
 
 private:
     typedef struct EntityInfo
     {
-        MapCoord    offset;
+        MapOffset   offset;
 
         sf::String  global_name;
 
@@ -83,7 +69,7 @@ private:
 
     typedef std::vector<EntityInfo> Entities;
 
-    MapTile *       _tiles;
+    // TODO MapTile *       _tiles;
 
     Tileset         _tileset;
 
@@ -94,5 +80,8 @@ private:
     Entities        _entities;
 
 };
+
+typedef Resources::Handle<Map>  MapHandle;
+typedef Resources::Manager<Map> MapManager;
 
 #endif // _MAP_HPP_

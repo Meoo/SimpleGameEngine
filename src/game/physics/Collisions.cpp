@@ -3,12 +3,13 @@
  * @author Bastien Brunnenstein
  */
 
-#include "game/Collisions.hpp"
+#include "game/physics/Collisions.hpp"
 
+/*
 #include <iostream>
 #include <cmath>
 
-#include "game/Entity.hpp"
+#include "game/entities/Entity.hpp"
 #include "game/Map.hpp"
 
 void Collision::checkCollisionEntityTile(const Entity * entity, const MapTile * tile,
@@ -46,3 +47,4 @@ void Collision::checkCollision(const sf::FloatRect & first_bounds,  CollisionSty
     // TODO Collisions ... :(
     output->collides = false;
 }
+*/

@@ -8,32 +8,22 @@
 
 #include "screens/Screen.hpp"
 
-#include "resources/Resources.hpp"
-#include "game/Animation.hpp"
-#include "game/Tileset.hpp"
+#include "game/entities/WorldEntity.hpp"
 
 class GameScreen : public Screen
 {
 public:
-    GameScreen();
+                        GameScreen();
 
-    virtual ~GameScreen() {}
+    virtual             ~GameScreen() {}
 
-    virtual Screen * update(sf::Time elapsed_time);
-
-    virtual void onKeyPressed(sf::Keyboard::Key key);
+    virtual Screen *    update(sf::Time elapsed_time);
 
 protected:
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    virtual void        draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-    AnimationSetHandle anim;
-
-    AnimationInstance animi;
-
-    TextureHandle texture;
-
-    Tileset tileset;
+    WorldEntity         _world;
 
 };
 
