@@ -18,7 +18,7 @@ class WorldEntity : public Entity
 public:
                             WorldEntity();
 
-    virtual                 ~WorldEntity();
+    virtual                 ~WorldEntity()                  {}
 
     virtual sf::Vector2f    getOrigin() const               { return sf::Vector2f(); }
 
@@ -30,9 +30,6 @@ public:
      * Entity#update function is exposed on the world entity.
      *
      * This will check collisions between all the entities and update them.
-     *
-     * Additionally, dead entities are removed from their parents, and
-     * then released.
      *
      * @param elapsed_time
      */

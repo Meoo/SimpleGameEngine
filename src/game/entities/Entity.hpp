@@ -45,8 +45,10 @@ public:
 
     /**
      * Virtual destructor for inheritance.
+     *
+     * Release child entities and remove itself from it's parent list.
      */
-    virtual                 ~Entity() {}
+    virtual                 ~Entity();
 
 
     //---- Functions
@@ -259,6 +261,26 @@ public:
      */
     bool                    isSolid()                   { return _solid; }
 
+    /**
+     * Set the visibility state of this entity.
+     *
+     * @param visible
+     *
+     * @see #isVisible
+     */
+    void                    setVisible(bool visible)    { _visible = visible; }
+
+    /**
+     * Check if this entity is visible or invisible.
+     *
+     * An invisible entity will never be drawn on screen.
+     *
+     * An entity is visible by default.
+     *
+     * @return
+     */
+    bool                    isVisible()                 { return _visible; }
+
 #ifndef NDEBUG
     /**
      * Draw this entity's and all child entities' collision masks.
@@ -289,8 +311,8 @@ protected:
     /**
      * Called when a direct child of this entity dies.
      *
-     * @note Dead childs are not removed from the child list before this
-     *       function is called.
+     * @note Dead childs are removed from the child list at the end of
+     *       the frame.
      *
      * @param child
      */
@@ -349,6 +371,15 @@ private:
     bool                    _solid;
 
     /**
+     * Flag indicating if this entity is visible.
+     *
+     * An invisible entity will not be drawn on screen.
+     *
+     * @see #isVisible
+     */
+    bool                    _visible;
+
+    /**
      * Childs of this entity.
      */
     EntityList              _childs;
@@ -369,7 +400,7 @@ private:
      *
      * @param elapsed_time
      *
-     * @see #doUpdate
+     * @see #onUpdate
      */
     void                    update(sf::Time elapsed_time);
 

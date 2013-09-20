@@ -10,11 +10,6 @@ WorldEntity::WorldEntity()
 {
 }
 
-WorldEntity::~WorldEntity()
-{
-    // TODO free memory ~WorldEntity
-}
-
 sf::FloatRect WorldEntity::getBounds() const
 {
     // TODO WorldEntity::getBounds
@@ -31,6 +26,4 @@ void WorldEntity::update(sf::Time elapsed_time)
     // TODO WorldEntity::update collisions
 
     Entity::update(elapsed_time);
-
-    // TODO WorldEntity::update free dead entities
 }
