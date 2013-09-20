@@ -31,7 +31,7 @@ public:
 
     typedef std::set<const Entity *>    ConstEntityList;
 
-    typedef std::set<Body>              BodyList; // TODO use pointers?
+    typedef std::set<Body>              BodyList; // TODO Entity BodyList use pointers?
 
 
     //---- Constructor & Destructor
@@ -118,7 +118,7 @@ public:
     /**
      * Get all the childs of this entity.
      *
-     * TODO use iterators instead?
+     * TODO Entity::getChilds use iterators instead?
      *
      * @return
      */
@@ -127,7 +127,7 @@ public:
     /**
      * Get all the childs of this entity. (const)
      *
-     * TODO use const iterators instead?
+     * TODO Entity::getChilds use const iterators instead?
      *
      * @return
      */
@@ -168,7 +168,7 @@ public:
      * If you do not want your entity to be solid, return an empty list
      * and use #setSolid to set the entity to a non solid state.
      *
-     * TODO const return?
+     * TODO Entity::getBodies const return?
      *
      * @param area (optional) rectangle which the returned bodies should
      *             intersect with.
@@ -231,7 +231,7 @@ public:
      * such as MapEntity, as it will help optimizing the collisions.
      *
      * If you want an inactive entity to move, use #wake first, as inactive
-     * entities can be handled specially in a SpacePartitioner. TODO use a dirty flag instead?
+     * entities can be handled specially in a SpacePartitioner. TODO Entity & activity, use a dirty flag instead?
      *
      * An inactive entity will still receive callbacks, and it's childs will
      * stil be updated if they are active.
@@ -295,7 +295,7 @@ public:
 protected:
     //---- Callbacks
 
-    // TODO onCollide
+    // TODO Entity::onCollide def
 
     /**
      * Called every frame.
@@ -318,7 +318,7 @@ protected:
      */
     virtual void            onChildDeath(const Entity * child) {}
 
-    // TODO onDraw(hint rect)
+    // TODO Entity::onDraw(hint rect) def
 
     void                    draw(sf::RenderTarget & target, sf::RenderStates states) const;
 

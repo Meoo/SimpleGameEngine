@@ -77,7 +77,7 @@ class Body
 public:
     /**
      * Entity represented by this body.
-     * TODO Should be const..?
+     * TODO Body entity should be const..?
      */
     Entity *        entity;
 

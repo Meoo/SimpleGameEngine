@@ -64,7 +64,7 @@ void Quadtree::pushEntityInternal(const Entity * entity, const sf::IntRect & ent
     // Top left block size is (b.width / 2, b.height / 2)
     // Bottom right block size is (b.width -b.width / 2, b.height - b.height / 2)
     //   and have the offset (b.width / 2, b.height / 2) from the origin (b.left, b.top)
-    // TODO Check that the implementation is correct... After some tests it looks like everything is ok...
+    // TODO Quadtree Check that the implementation is correct... After some tests it looks like everything is ok...
 
     if (entity_bounds.left < _horizontal_middle)
     {

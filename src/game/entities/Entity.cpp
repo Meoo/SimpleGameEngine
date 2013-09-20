@@ -61,7 +61,7 @@ void Entity::setParent(Entity * parent)
 
 void Entity::drawDebug(sf::RenderTarget & target, sf::RenderStates states) const
 {
-    // TODO implement Entity::drawDebug
+    // TODO Entity::drawDebug implement
 }
 
 Entity::Entity()
@@ -113,7 +113,7 @@ void Entity::addChild(Entity * entity)
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    // TODO implement Entity::draw
+    // TODO Entity::draw implement
     // onDraw(hint rect);
 }
 

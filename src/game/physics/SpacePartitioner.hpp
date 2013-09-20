@@ -20,9 +20,9 @@ class WorldEntity;
 class SpacePartitioner
 {
 public:
-    typedef std::set<Entity *>  EntityList; // TODO EntityConstList?
+    typedef std::set<Entity *>  EntityList; // TODO SpacePartitioner ConstEntityList?
 
-    typedef std::set<Body>      BodyList; // TODO use pointers?
+    typedef std::set<Body>      BodyList; // TODO SpacePartitioner BodyList use pointers?
 
     /**
      * Virtual destructor for inheritance.
@@ -36,12 +36,12 @@ public:
      */
     virtual void        updateEntities(const WorldEntity * world) = 0;
 
-    // TODO computeCollisions, computeCollisionsWithEntity
+    // TODO SpacePartitioner def computeCollisions, computeCollisionsWithEntity
 
     /**
      * Find entites in a given rectangle.
      *
-     * TODO EntityConstList?
+     * TODO ConstEntityList?
      *
      * @param rectangle
      * @return a set of entities intersecting with given rectangle.

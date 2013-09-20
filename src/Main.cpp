@@ -77,7 +77,7 @@ int main(int argc, char ** argv)
         // On the other hand, reduces the quality when the default resolution is not used
         window.setView(sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)));
 
-        // TODO Make the view ratio independent and draw black borders ?
+        // TODO Main Make the view ratio independent and draw black borders ?
 
         // Start global clock
         sf::Clock global_clock;

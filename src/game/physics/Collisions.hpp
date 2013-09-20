@@ -10,7 +10,7 @@
 
 namespace Collision
 {
-    // TODO collisions
+    // TODO Collisions...
 }
 
 #endif // _COLLISIONS_HPP_

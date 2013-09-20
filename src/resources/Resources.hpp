@@ -41,7 +41,7 @@ namespace Resources
         volatile bool       _ready;
         volatile bool       _error;
         T                   _object;
-        volatile unsigned   _references; // TODO Concurrent access possible! Should be atomic instead?
+        volatile unsigned   _references; // TODO Resource Concurrent access possible! Should be atomic instead?
 
     }; // class Resource<T>
 

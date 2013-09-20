@@ -40,11 +40,11 @@ void Collision::checkCollision(const sf::FloatRect & first_bounds,  CollisionSty
         return;
     }
 
-    // TODO Handle every collision style
+    // TODO Collisions Handle every collision style
     if ((first_style != COLLISION_STYLE_BOUNDING_BOX) || (second_style != COLLISION_STYLE_BOUNDING_BOX))
         std::cerr << "Only COLLISION_STYLE_BOUNDING_BOX are handled actually" << std::endl;
 
-    // TODO Collisions ... :(
+    // TODO Collisions...
     output->collides = false;
 }
 */
