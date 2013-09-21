@@ -21,7 +21,7 @@ end
 newoption {
   trigger     = "sfml_bin_directory",
   value       = "path",
-  description = "[Optional] SFML2 binaries directory (must contains lib directory)"
+  description = "[Optional] SFML2 build directory (must contains lib directory)"
 }
 
 if not _OPTIONS["sfml_bin_directory"] then
@@ -33,8 +33,8 @@ newoption {
   value       = "bool",
   description = "[Default=false] Link SFML2 as a static library",
   allowed = {
-    { "true",   "Static linkage enabled" },
-    { "false",  "Static linkage disabled" },
+    { "true",   "Static linking enabled" },
+    { "false",  "Static linking disabled" },
   }
 }
 

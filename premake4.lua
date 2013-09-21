@@ -48,8 +48,8 @@ end
 
 -- Output directories
 local BIN_DIR       = _OPTIONS["output_directory"]
-local OBJ_DIR       = BIN_DIR.."/obj"
-local MAKE_DIR      = BIN_DIR.."/make"
+local OBJ_DIR       = BIN_DIR .."/obj"
+local MAKE_DIR      = BIN_DIR .."/make"
 
 -- Enable profiling with gprof on GNU GCC
 local GPROF         = bool_default(_OPTIONS["gprof"], false)
@@ -62,8 +62,8 @@ local STDLIB_STATIC = bool_default(_OPTIONS["stdlib_static"], false)
 solution "SimpleGameEngine"
   configurations { "Debug", "Release" }
 
-  targetdir(BIN_DIR)
-  objdir   (OBJ_DIR)
+  targetdir( BIN_DIR )
+  objdir   ( OBJ_DIR )
 
   includedirs { SFML_INCLUDE_DIR }
   libdirs     { SFML_LIBS_DIR }
@@ -91,7 +91,7 @@ solution "SimpleGameEngine"
 
 project "SGE"
   language "C++"
-  location(MAKE_DIR)
+  location( MAKE_DIR )
 
   files       { "src/**.cpp" }
   includedirs { "src" }
@@ -102,11 +102,11 @@ project "SGE"
 
   configuration "Debug"
     kind "ConsoleApp"
-    links_SFML(SFML_LIBS, true)
+    links_SFML( SFML_LIBS, true )
 
   configuration "Release"
     kind "WindowedApp"
-    links_SFML(SFML_LIBS, false)
+    links_SFML( SFML_LIBS, false )
 
   configuration "not Windows"
     -- may require sndfile and openal
