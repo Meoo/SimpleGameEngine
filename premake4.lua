@@ -1,35 +1,4 @@
 
--- SFML2 options
-newoption {
-  trigger     = "sfml_directory",
-  value       = "path",
-  description = "SFML2 base directory (must contains include directory)"
-}
-
-if not _OPTIONS["sfml_directory"] then
-  _OPTIONS["sfml_directory"] = ""
-end
-
-newoption {
-  trigger     = "sfml_bin_directory",
-  value       = "path",
-  description = "[Optional] SFML2 binaries directory (must contains lib directory)"
-}
-
-if not _OPTIONS["sfml_bin_directory"] then
-  _OPTIONS["sfml_bin_directory"] = _OPTIONS["sfml_directory"]
-end
-
-newoption {
-  trigger     = "sfml_static",
-  value       = "bool",
-  description = "[Default=false] Link SFML2 as a static library",
-  allowed = {
-    { "true",   "Static linkage enabled" },
-    { "false",  "Static linkage disabled" },
-  }
-}
-
 -- Output directories option
 newoption {
   trigger     = "output_directory",
@@ -65,17 +34,17 @@ newoption {
 
 -- ///////////////////////////////////////////////////// --
 
-function bool_default(value, default)
+-- SFML2 directories and configuration
+dofile "make/SFML.lua"
+
+-- ///////////////////////////////////////////////////// --
+
+local function bool_default(value, default)
   if not value then return default end
   if value:lower() == "true" then return true end
   if value:lower() == "false" then return false end
   error (value.." is not a valid boolean value")
 end
-
--- SFML2 directories and configuration
-local SFML_INC_DIR  = _OPTIONS["sfml_directory"].."/include"
-local SFML_LIB_DIR  = _OPTIONS["sfml_bin_directory"].."/lib"
-local SFML_STATIC   = bool_default(_OPTIONS["sfml_static"], false)
 
 -- Output directories
 local BIN_DIR       = _OPTIONS["output_directory"]
@@ -88,14 +57,6 @@ local GPROF         = bool_default(_OPTIONS["gprof"], false)
 -- Enable static linking of stdlib
 local STDLIB_STATIC = bool_default(_OPTIONS["stdlib_static"], false)
 
--- SFML2 useful link function
-function sfml_links(tab, dbg, static)
-  local suffix = (static and "-s" or "") .. (dbg and "-d" or "")
-  for _, v in pairs(tab) do
-    links("sfml-" .. v .. suffix)
-  end
-end
-
 -- ///////////////////////////////////////////////////// --
 
 solution "SimpleGameEngine"
@@ -104,8 +65,8 @@ solution "SimpleGameEngine"
   targetdir(BIN_DIR)
   objdir   (OBJ_DIR)
 
-  includedirs { SFML_INC_DIR }
-  libdirs     { SFML_LIB_DIR }
+  includedirs { SFML_INCLUDE_DIR }
+  libdirs     { SFML_LIBS_DIR }
 
   flags { "ExtraWarnings", "FatalWarnings", "NoRTTI", "NoPCH" }
   
@@ -135,18 +96,17 @@ project "SGE"
   files       { "src/**.cpp" }
   includedirs { "src" }
 
-  sfml_libs = { "graphics", "audio", "window", "system" }
-  if SFML_STATIC then
-    defines { "SFML_STATIC" }
-  end
+  SFML_LIBS = { "graphics", "audio", "window", "system" }
+  
+  defines_SFML()
 
   configuration "Debug"
     kind "ConsoleApp"
-    sfml_links(sfml_libs, true, SFML_STATIC)
+    links_SFML(SFML_LIBS, true)
 
   configuration "Release"
     kind "WindowedApp"
-    sfml_links(sfml_libs, false, SFML_STATIC)
+    links_SFML(SFML_LIBS, false)
 
   configuration "not Windows"
     -- may require sndfile and openal
