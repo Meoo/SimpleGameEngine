@@ -17,7 +17,7 @@ ExceptionScreen::ExceptionScreen(const std::exception & exception, Screen * last
     _text1.setString(EXCEPTION_TITLE);
     _text2.setString(exception.what());
     _text1.setCharacterSize(90);
-    _text2.setCharacterSize(35);
+    _text2.setCharacterSize(24);
     _text1.setStyle(sf::Text::Bold);
     _text1.setColor(sf::Color::White);
     _text2.setColor(sf::Color::White);
