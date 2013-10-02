@@ -17,10 +17,6 @@ newoption {
   description = "Boost base directory (must contain boost directory)"
 }
 
-if not _OPTIONS["boost_directory"] then
-  _OPTIONS["boost_directory"] = ""
-end
-
 newoption {
   trigger     = "boost_bin_directory",
   value       = "path",
@@ -28,7 +24,7 @@ newoption {
 }
 
 if not _OPTIONS["boost_bin_directory"] then
-  _OPTIONS["boost_bin_directory"] = _OPTIONS["boost_directory"]
+  _OPTIONS["boost_bin_directory"] = _OPTIONS["boost_directory"] or ""
 end
 
 newoption {
@@ -60,7 +56,7 @@ local function bool_default(value, default)
   error (value.." is not a valid boolean value")
 end
 
-BOOST_DIR           = _OPTIONS["boost_directory"]
+BOOST_DIR           = _OPTIONS["boost_directory"] or ""
 BOOST_INCLUDE_DIR   = BOOST_DIR
 BOOST_LIBS_DIR      = _OPTIONS["boost_bin_directory"] .."/lib"
 BOOST_RUNTIME_STATIC= bool_default(_OPTIONS["boost_runtime_static"], false)

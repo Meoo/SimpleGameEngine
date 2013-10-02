@@ -9,13 +9,9 @@ newoption {
   description = "MwUtil base directory (must contain src directory)"
 }
 
-if not _OPTIONS["mwutil_directory"] then
-  _OPTIONS["mwutil_directory"] = ""
-end
-
 -- ///////////////////////////////////////////////////// --
 
-MWUTIL_DIR          = _OPTIONS["mwutil_directory"]
+MWUTIL_DIR          = _OPTIONS["mwutil_directory"] or ""
 MWUTIL_INCLUDE_DIR  = MWUTIL_DIR .. "/src"
 
 -- ///////////////////////////////////////////////////// --

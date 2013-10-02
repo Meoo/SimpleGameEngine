@@ -14,10 +14,6 @@ newoption {
   description = "SFML2 base directory (must contain include directory)"
 }
 
-if not _OPTIONS["sfml_directory"] then
-  _OPTIONS["sfml_directory"] = ""
-end
-
 newoption {
   trigger     = "sfml_bin_directory",
   value       = "path",
@@ -25,7 +21,7 @@ newoption {
 }
 
 if not _OPTIONS["sfml_bin_directory"] then
-  _OPTIONS["sfml_bin_directory"] = _OPTIONS["sfml_directory"]
+  _OPTIONS["sfml_bin_directory"] = _OPTIONS["sfml_directory"] or ""
 end
 
 newoption {
@@ -47,7 +43,7 @@ local function bool_default(value, default)
   error (value.." is not a valid boolean value")
 end
 
-SFML_DIR            = _OPTIONS["sfml_directory"]
+SFML_DIR            = _OPTIONS["sfml_directory"] or ""
 SFML_STATIC         = bool_default(_OPTIONS["sfml_static"], false)
 SFML_INCLUDE_DIR    = SFML_DIR .. "/include"
 SFML_LIBS_DIR       = _OPTIONS["sfml_bin_directory"] .. "/lib"
