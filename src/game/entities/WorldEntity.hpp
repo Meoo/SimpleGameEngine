@@ -16,15 +16,15 @@
 class WorldEntity : public Entity
 {
 public:
-                            WorldEntity();
+                        WorldEntity();
 
-    virtual                 ~WorldEntity()                  {}
+    virtual             ~WorldEntity()                  {}
 
-    virtual sf::Vector2f    getOrigin() const               { return sf::Vector2f(); }
+    virtual Vector      getOrigin() const               { return Vector(); }
 
-    virtual sf::FloatRect   getBounds() const;
+    virtual Bounds      getBounds() const;
 
-    virtual BodyList        getBodies(const sf::FloatRect & area = sf::FloatRect()) const;
+    virtual BodyList    getBodies(const Bounds & area = Bounds()) const;
 
     /**
      * Entity#update function is exposed on the world entity.
@@ -33,7 +33,7 @@ public:
      *
      * @param elapsed_time
      */
-    virtual void            update(sf::Time elapsed_time);
+    virtual void        update(sf::Time elapsed_time);
 
 protected:
     friend class Entity;
@@ -86,7 +86,7 @@ private:
      * @see Entity#getWorldOrigin
      * @see Entity#getWorldOriginImpl
      */
-    virtual sf::Vector2f    getWorldOriginImpl() const      { return sf::Vector2f(); }
+    virtual Vector          getWorldOriginImpl() const      { return Vector(); }
 
 };
 

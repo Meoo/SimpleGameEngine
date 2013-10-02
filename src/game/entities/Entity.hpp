@@ -12,6 +12,9 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Time.hpp>
 
+#include <Mw/Math/Vector2.hpp>
+#include <Mw/Math/Bounds2.hpp>
+
 #include "game/physics/Body.hpp"
 
 class WorldEntity;
@@ -32,6 +35,10 @@ public:
     typedef std::set<const Entity *>    ConstEntityList;
 
     typedef std::set<Body>              BodyList; // TODO Entity BodyList use pointers?
+
+    typedef mw::math::Vector2<float>    Vector;
+
+    typedef mw::math::Bounds2<float>    Bounds;
 
 
     //---- Constructor & Destructor
@@ -84,14 +91,14 @@ public:
      *
      * @return
      */
-    virtual sf::Vector2f    getOrigin() const = 0;
+    virtual Vector          getOrigin() const = 0;
 
     /**
      * Get the origin of this entity, relative to the world.
      *
      * @return
      */
-    sf::Vector2f            getWorldOrigin() const      { return getWorldOriginImpl(); }
+    Vector                  getWorldOrigin() const      { return getWorldOriginImpl(); }
 
     /**
      * Change the parent of this entity.
@@ -157,7 +164,7 @@ public:
      *
      * @return rectangle covering the physical representation of the entity.
      */
-    virtual sf::FloatRect   getBounds() const = 0;
+    virtual Bounds          getBounds() const = 0;
 
     /**
      * Get bodies representing physically this entity.
@@ -177,7 +184,7 @@ public:
      *
      * @return
      */
-    virtual BodyList        getBodies(const sf::FloatRect & area = sf::FloatRect()) const = 0;
+    virtual BodyList        getBodies(const Bounds & area = Bounds()) const = 0;
 
     /**
      * Get the visual bounds of this entity.
@@ -188,7 +195,7 @@ public:
      *
      * @return rectangle covering the visual representation of the entity.
      */
-    virtual sf::FloatRect   getRenderBounds() const     { return getBounds(); }
+    virtual Bounds          getRenderBounds() const     { return getBounds(); }
 
     /**
      * Mark this entity as dead.
@@ -449,7 +456,7 @@ private:
      * @see #getWorld
      * @see WorldEntity#getWorldImpl
      */
-    virtual sf::Vector2f    getWorldOriginImpl() const  { return _parent->getWorldOrigin() + getOrigin(); }
+    virtual Vector          getWorldOriginImpl() const  { return _parent->getWorldOrigin() + getOrigin(); }
 
 };
 

@@ -10,13 +10,13 @@ WorldEntity::WorldEntity()
 {
 }
 
-sf::FloatRect WorldEntity::getBounds() const
+Entity::Bounds WorldEntity::getBounds() const
 {
     // TODO WorldEntity::getBounds
-    return sf::FloatRect();
+    return Bounds();
 }
 
-WorldEntity::BodyList WorldEntity::getBodies(const sf::FloatRect & area) const
+WorldEntity::BodyList WorldEntity::getBodies(const Bounds & area) const
 {
     return BodyList();
 }

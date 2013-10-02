@@ -16,16 +16,16 @@
 class MapEntity : public Entity
 {
 public:
-                    MapEntity(const MapHandle & map, const MapOffset & offset);
+                        MapEntity(const MapHandle & map, const MapOffset & offset);
 
-    virtual         ~MapEntity();
+    virtual             ~MapEntity();
 
-    sf::FloatRect   getBounds() const;
+    virtual Bounds      getBounds() const;
 
-    BodyList        getBodies(const sf::FloatRect & hint = sf::FloatRect()) const;
+    virtual BodyList    getBodies(const Bounds & area = Bounds()) const;
 
 private:
-    MapHandle _map;
+    MapHandle           _map;
 
 };
 
