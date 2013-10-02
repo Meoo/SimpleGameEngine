@@ -37,6 +37,12 @@ newoption {
 -- SFML2 directories and configuration
 dofile "make/SFML.lua"
 
+-- MwUtil directories and configuration
+dofile "make/MwUtil.lua"
+
+-- Boost directories and configuration
+dofile "make/Boost.lua"
+
 -- ///////////////////////////////////////////////////// --
 
 local function bool_default(value, default)
@@ -65,7 +71,7 @@ solution "SimpleGameEngine"
   targetdir( BIN_DIR )
   objdir   ( OBJ_DIR )
 
-  includedirs { SFML_INCLUDE_DIR }
+  includedirs { SFML_INCLUDE_DIR, MWUTIL_INCLUDE_DIR, BOOST_INCLUDE_DIR }
   libdirs     { SFML_LIBS_DIR }
 
   flags { "ExtraWarnings", "FatalWarnings", "NoRTTI", "NoPCH" }

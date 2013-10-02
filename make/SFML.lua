@@ -58,12 +58,12 @@ if _OPTIONS["sfml_directory"] ~= "" then
   -- Check directory validity
   local m = os.matchfiles(SFML_INCLUDE_DIR .."/SFML/Config.hpp")
   if #m == 0 then
-    error("Not a valid SFML include directory : ".. SFML_INCLUDE_DIR)
+    print("Not a valid SFML include directory : ".. SFML_INCLUDE_DIR)
   end
 
   local m = os.matchfiles(SFML_LIBS_DIR .."/libsfml-*.a")
   if #m == 0 then
-    error("No SFML libraries in directory : ".. SFML_LIBS_DIR)
+    print("No SFML libraries in directory : ".. SFML_LIBS_DIR)
   end
 end
 
