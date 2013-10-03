@@ -15,7 +15,7 @@ public:
 
     virtual     ~TrivialSpacePartitioner() {}
 
-    void        updateEntities(WorldEntity * world);
+    void        updateEntities(const WorldEntity * world);
 
     EntityList  findEntitiesInRectangle(const sf::FloatRect & rectangle) const;
 
