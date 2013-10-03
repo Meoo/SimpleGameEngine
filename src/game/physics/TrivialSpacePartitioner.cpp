@@ -13,7 +13,7 @@
 
 namespace
 {
-    void buildEntityList(SpacePartitioner::EntityList & entity_list, const Entity * entity)
+    void buildEntityList(SpacePartitioner::EntityList & entity_list, Entity * entity)
     {
         const Entity::EntityList & list = entity->getChilds();
         for (Entity::EntityList::iterator it = list.begin(); it != list.end(); ++it)
@@ -31,9 +31,9 @@ namespace
     }
 }
 
-void TrivialSpacePartitioner::updateEntities(const WorldEntity * world)
+void TrivialSpacePartitioner::updateEntities(WorldEntity * world)
 {
-    Entity::EntityList list;
+    Entity::EntityList list; // FIXME Have to be a vector
 
     ::buildEntityList(list, world);
 

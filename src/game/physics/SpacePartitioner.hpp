@@ -34,7 +34,7 @@ public:
      *
      * @param world
      */
-    virtual void        updateEntities(const WorldEntity * world) = 0;
+    virtual void        updateEntities(WorldEntity * world) = 0;
 
     // TODO SpacePartitioner def computeCollisions, computeCollisionsWithEntity
 
