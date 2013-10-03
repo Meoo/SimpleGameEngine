@@ -5,8 +5,10 @@
 
 #include "game/entities/WorldEntity.hpp"
 
+#include "game/physics/TrivialSpacePartitioner.hpp"
+
 WorldEntity::WorldEntity()
-    : _next_entity_id(0)
+    : _next_entity_id(0), _space_partitioner(new TrivialSpacePartitioner())
 {
 }
 
@@ -23,6 +25,8 @@ WorldEntity::BodyList WorldEntity::getBodies(const Bounds & area) const
 
 void WorldEntity::update(sf::Time elapsed_time)
 {
+    _space_partitioner->updateEntities(this);
+
     // TODO WorldEntity::update collisions
 
     Entity::update(elapsed_time);

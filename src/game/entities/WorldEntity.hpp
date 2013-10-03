@@ -8,6 +8,8 @@
 
 #include "game/entities/Entity.hpp"
 
+#include "game/physics/SpacePartitioner.hpp"
+
 /**
  * The world is the root entity, father of everything.
  *
@@ -55,6 +57,11 @@ private:
      * Initialized to 0, and pre incremented in #allocateEntityId.
      */
     Id                      _next_entity_id;
+
+    /**
+     * Space partitioner used by this world.
+     */
+    SpacePartitioner *      _space_partitioner;
 
     //----
 
