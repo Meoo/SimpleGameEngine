@@ -16,7 +16,7 @@ MWUTIL_INCLUDE_DIR  = MWUTIL_DIR .. "/src"
 
 -- ///////////////////////////////////////////////////// --
 
-if _OPTIONS["sfml_directory"] ~= "" then
+if _OPTIONS["mwutil_directory"] then
   -- Check directory validity
   local m = os.matchfiles(MWUTIL_INCLUDE_DIR .."/Mw/Config.hpp")
   if #m == 0 then
