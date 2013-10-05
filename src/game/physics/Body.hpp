@@ -6,7 +6,7 @@
 #ifndef _BODY_HPP_
 #define _BODY_HPP_
 
-#include <SFML/System/Vector2.hpp>
+#include <Mw/Math/Vector2.hpp>
 
 class Entity;
 
@@ -74,6 +74,8 @@ typedef enum CollisionShape
  */
 class Body
 {
+    typedef mw::math::Vector2<float> Vector;
+
 public:
     /**
      * Entity represented by this body.
@@ -84,12 +86,12 @@ public:
     /**
      * Bounds of this body in the world.
      */
-    sf::Vector2f    position;
+    Vector          position;
 
     /**
-     * Size of this body.
+     * Inertia of this body.
      */
-    sf::Vector2f    size;
+    Vector          inertia;
 
     /**
      * Shape of this body.
