@@ -84,7 +84,7 @@ public:
     Entity *        entity;
 
     /**
-     * Position of this body in the world.
+     * Position (center) of this body in the world.
      */
     Vector          position;
 
