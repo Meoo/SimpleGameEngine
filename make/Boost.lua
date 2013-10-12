@@ -105,8 +105,7 @@ function links_Boost(libs, debug)
     end
     for k, v in pairs(libs) do
         if v ~= "main" then
-            libs[k] = "boost_" .. v .. "-" .. BOOST_SYSTEM .. s .. "-" .. BOOST_VERSION
+            links("boost_" .. v .. "-" .. BOOST_SYSTEM .. s .. "-" .. BOOST_VERSION)
         end
     end
-    links (libs)
 end

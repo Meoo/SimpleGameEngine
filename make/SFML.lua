@@ -77,12 +77,11 @@ function links_SFML(libs, debug)
     end
     for k, v in pairs(libs) do
         if v ~= "main" then
-            libs[k] = "sfml-" .. v .. s .. d
+            links("sfml-" .. v .. s .. d)
         else
-            libs[k] = "sfml-" .. v .. d
+            links("sfml-" .. v .. d)
         end
     end
-    links (libs)
 end
 
 -- SFML defines
