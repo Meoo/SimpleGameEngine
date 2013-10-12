@@ -84,9 +84,14 @@ public:
     Entity *        entity;
 
     /**
-     * Bounds of this body in the world.
+     * Position of this body in the world.
      */
     Vector          position;
+
+    /**
+     * Size of this body.
+     */
+    Vector          size;
 
     /**
      * Inertia of this body.
