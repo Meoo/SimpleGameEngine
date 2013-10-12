@@ -168,8 +168,7 @@ void OptionsScreen::draw(sf::RenderTarget & target, sf::RenderStates states) con
         text.setString(MENU_FULLSCREEN);
         break;
     default:
-        // Should never happen
-        assert(false);
+        assert(false && "Invalid screen mode selected");
         break;
     }
     DRAW_TEXT(MODE, 220, -120);
