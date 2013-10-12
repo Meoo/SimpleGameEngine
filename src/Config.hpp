@@ -113,6 +113,17 @@ const sf::String MENU_NO            ("No");
 
 /**@}*/
 
+#ifndef NDEBUG
+
+const sf::Color  DEBUG_DRAW_SHAPE_COLOR     (sf::Color::Blue);
+const sf::Color  DEBUG_DRAW_INERTIA_COLOR_B (sf::Color::Green);
+const sf::Color  DEBUG_DRAW_INERTIA_COLOR_E (sf::Color::Red);
+const float      DEBUG_DRAW_INERTIA_SCALE   = 3.f;
+
+const sf::Keyboard::Key DEBUG_KEY           = sf::Keyboard::F8;
+
+#endif
+
 
 /**
  * @name Special exceptions that can be thrown, usually from screens.

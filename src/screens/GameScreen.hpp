@@ -19,11 +19,17 @@ public:
 
     virtual Screen *    update(sf::Time elapsed_time);
 
+    virtual void        onKeyPressed(sf::Keyboard::Key key);
+
 protected:
     virtual void        draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
     WorldEntity         _world;
+
+#ifndef NDEBUG
+    bool                _debug;
+#endif
 
 };
 
