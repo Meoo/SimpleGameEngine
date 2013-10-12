@@ -245,7 +245,7 @@ public:
      *
      * @return
      */
-    bool                    isActive()                  { return _active; }
+    bool                    isActive() const            { return _active; }
 
     /**
      * Set the solidity state of this entity.
@@ -266,7 +266,7 @@ public:
      *
      * @return
      */
-    bool                    isSolid()                   { return _solid; }
+    bool                    isSolid() const             { return _solid; }
 
     /**
      * Set the visibility state of this entity.
@@ -286,7 +286,7 @@ public:
      *
      * @return
      */
-    bool                    isVisible()                 { return _visible; }
+    bool                    isVisible() const           { return _visible; }
 
 #ifndef NDEBUG
     /**
