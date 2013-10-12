@@ -7,6 +7,7 @@
 #define _ENTITY_HPP_
 
 #include <set>
+#include <vector>
 
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Graphics/Rect.hpp>
@@ -34,7 +35,7 @@ public:
 
     typedef std::set<const Entity *>    ConstEntityList;
 
-    typedef std::set<Body>              BodyList; // TODO Entity BodyList use pointers?
+    typedef std::vector<Body>           BodyList; // TODO Entity BodyList use pointers?
 
     typedef mw::math::Vector2<float>    Vector;
 
