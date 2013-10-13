@@ -298,8 +298,8 @@ void Entity::update(sf::Time elapsed_time)
             child->_parent = 0;
             delete child;
         }
-        else
-            ++it;
+
+        ++it;
     }
 }
 
