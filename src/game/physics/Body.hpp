@@ -78,10 +78,9 @@ class Body
 
 public:
     /**
-     * Entity represented by this body.
-     * TODO Body entity should be const..?
+     * Custom user data (can be used to identify the body).
      */
-    Entity *        entity;
+    void *          user_data;
 
     /**
      * Position (center) of this body in the world.
