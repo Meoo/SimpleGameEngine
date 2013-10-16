@@ -257,7 +257,6 @@ void Entity::drawDebug(sf::RenderTarget & target, sf::RenderStates states) const
                                         DEBUG_DRAW_INERTIA_COLOR_E));
 
             target.draw(vertarray);
-            vertarray.clear();
         }
     }
 }
