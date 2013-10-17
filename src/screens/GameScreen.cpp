@@ -16,7 +16,6 @@ GameScreen::GameScreen()
 
 Screen * GameScreen::update(sf::Time elapsed_time)
 {
-    _world.setSolid(true);
     _world.update(elapsed_time);
     return 0;
 }

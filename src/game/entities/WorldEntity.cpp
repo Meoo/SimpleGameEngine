@@ -10,6 +10,9 @@
 WorldEntity::WorldEntity()
     : _next_entity_id(0), _space_partitioner(new TrivialSpacePartitioner())
 {
+    setActive(false);
+    setVisible(false);
+    setSolid(false);
 }
 
 Entity::Bounds WorldEntity::getBounds() const
