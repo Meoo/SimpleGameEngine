@@ -268,6 +268,15 @@ Entity::Entity()
 {
 }
 
+void Entity::draw(sf::RenderTarget & target, sf::RenderStates states) const
+{
+    if (isVisible())
+        onDraw(target, states);
+
+    for (EntityList::const_iterator it = _childs.begin(); it != _childs.end(); ++it)
+        target.draw(**it);
+}
+
 void Entity::update(sf::Time elapsed_time)
 {
     // Update self
@@ -308,12 +317,6 @@ void Entity::addChild(Entity * entity)
     assert(_childs.find(entity) == _childs.end());
 
     _childs.insert(entity);
-}
-
-void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-    // TODO Entity::draw implement
-    // onDraw(hint rect);
 }
 
 

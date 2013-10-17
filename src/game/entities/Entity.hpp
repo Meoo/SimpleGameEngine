@@ -326,8 +326,20 @@ protected:
      */
     virtual void            onChildDeath(const Entity * child) {}
 
-    // TODO Entity::onDraw(hint rect) def
+    /**
+     * Called when this entity is drawn.
+     *
+     * This function will be called every frame if the object is visible and
+     * on screen. Overload it to draw the object as you want.
+     *
+     * An entity is drawn before it's childrens, so it will appear under them.
+     *
+     * @param target
+     * @param states
+     */
+    virtual void            onDraw(sf::RenderTarget & target, sf::RenderStates states) const {}
 
+    // From sf::Drawable
     void                    draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 private:
