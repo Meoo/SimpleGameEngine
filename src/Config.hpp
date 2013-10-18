@@ -25,7 +25,7 @@ const unsigned   WINDOW_WIDTH       = 800;
 const unsigned   WINDOW_HEIGHT      = 600;
 const bool       WINDOW_FULLSCREEN  = false;
 const bool       WINDOW_BORDERLESS  = false;
-const bool       WINDOW_VSYNC       = true;
+const bool       WINDOW_VSYNC       = false;
 const unsigned   WINDOW_FRAMERATE   = 60;
 
 /**@}*/
