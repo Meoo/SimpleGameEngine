@@ -105,16 +105,10 @@ project "SGE"
   SFML_LIBS = { "graphics", "audio", "window", "system" }
   
   defines_SFML()
+  links_SFML( SFML_LIBS )
 
   configuration "Debug"
     kind "ConsoleApp"
-    links_SFML( SFML_LIBS, true )
 
   configuration "Release"
     kind "WindowedApp"
-    links_SFML( SFML_LIBS, false )
-
-  configuration "not Windows"
-    -- may require sndfile and openal
-    -- also, is it enough for Mac?
-    links { "pthread", "X11", "GL", "Xrandr", "freetype", "GLEW", "jpeg" }

@@ -4,7 +4,7 @@
 --      SFML_INCLUDE_DIR
 --      SFML_LIBS_DIR
 -- Functions:
---      links_SFML(libs, debug)
+--      links_SFML(libs)
 --      defines_SFML()
 
 -- SFML2 options
@@ -57,7 +57,7 @@ if _OPTIONS["sfml_directory"] ~= "" then
     print("Not a valid SFML include directory : ".. SFML_INCLUDE_DIR)
   end
 
-  local m = os.matchfiles(SFML_LIBS_DIR .."/libsfml-*.a")
+  local m = os.matchfiles(SFML_LIBS_DIR .."/libsfml-*")
   if #m == 0 then
     print("No SFML libraries in directory : ".. SFML_LIBS_DIR)
   end
@@ -68,20 +68,35 @@ end
 -- SFML libraries
 function links_SFML(libs, debug)
     local s = ""
-    local d = ""
     if SFML_STATIC then
         s = "-s"
     end
-    if debug then
-        d = "-d"
-    end
+
+  configuration "Debug"
     for k, v in pairs(libs) do
         if v ~= "main" then
-            links("sfml-" .. v .. s .. d)
+            links("sfml-" .. v .. s .. "-d")
         else
-            links("sfml-" .. v .. d)
+            links("sfml-" .. v .. "-d")
         end
     end
+
+  configuration "Release"
+    for k, v in pairs(libs) do
+        if v ~= "main" then
+            links("sfml-" .. v .. s)
+        else
+            links("sfml-" .. v)
+        end
+    end
+
+  configuration "Windows"
+    links { "glew32", "opengl32", "gdi32", "openal32", "sndfile", "winmm", "freetype", "jpeg" }
+
+  configuration "Linux"
+    links { "GL", "GLEW", "X11", "Xrandr", "pthread", "freetype", "jpeg" }
+
+  configuration {}
 end
 
 -- SFML defines
