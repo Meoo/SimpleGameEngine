@@ -23,7 +23,7 @@ public:
 
     sf::IntRect getTextureRect(TileId tile_id) const
     {
-        if(tile_id < 0 || tile_id >= (_columns * _rows))
+        if(tile_id >= (_columns * _rows))
             throw std::range_error("Tileset::getTextureRect : tile_id not in range");
 
         return sf::IntRect((tile_id % _columns) * _width, (tile_id / _rows) * _height, _width, _height);
