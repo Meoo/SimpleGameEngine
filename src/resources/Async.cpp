@@ -10,13 +10,12 @@
 #include "Config.hpp"
 
 #include "ext/tinythread.h"
-#include "ext/fast_mutex.h"
 
 namespace
 {
     typedef tthread::thread                 thread_t;
 
-    typedef tthread::fast_mutex             mutex_t;
+    typedef tthread::mutex                  mutex_t;
 
     typedef tthread::condition_variable     condition_variable_t;
 
