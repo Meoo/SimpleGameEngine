@@ -209,6 +209,20 @@ int main(int argc, char ** argv)
             }
             catch (const RestartException & e)
             {
+                // Restart all clocks
+                global_clock.restart();
+                time_last_frame = sf::Time::Zero;
+#ifndef NDEBUG
+                total_clock.restart();
+                perf_event = sf::Time::Zero;
+                perf_update = sf::Time::Zero;
+                perf_draw = sf::Time::Zero;
+                perf_display = sf::Time::Zero;
+
+                fps_clock.restart();
+                fps_counter = 0;
+                total_fps_counter = 0;
+#endif
                 window.close();
                 restart = true;
                 break;
