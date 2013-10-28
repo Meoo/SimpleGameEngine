@@ -205,7 +205,7 @@ public:
      *
      * An inactive entity won't see it's #update function called.
      *
-     * Entities are active by default.
+     * An entity is active by default.
      *
      * You should use this function on entites that doesn't move or think,
      * such as MapEntity, as it will help optimizing the collisions.
