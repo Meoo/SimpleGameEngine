@@ -83,7 +83,7 @@ void Entity::drawDebug(sf::RenderTarget & target, sf::RenderStates states) const
                     center.getX() + half_size.getX(), center.getY() + half_size.getY()), DEBUG_DRAW_SHAPE_COLOR));
             break;
 
-        case COLLISION_SHAPE_DIAMOND:
+/*        case COLLISION_SHAPE_DIAMOND:
             vertarray.append(sf::Vertex(sf::Vector2f(
                     center.getX(), center.getY() + half_size.getY()), DEBUG_DRAW_SHAPE_COLOR));
             vertarray.append(sf::Vertex(sf::Vector2f(
@@ -218,7 +218,7 @@ void Entity::drawDebug(sf::RenderTarget & target, sf::RenderStates states) const
                     center.getX() - half_size.getX(), center.getY() + half_size.getY()), DEBUG_DRAW_SHAPE_COLOR));
             vertarray.append(sf::Vertex(sf::Vector2f(
                     center.getX() + half_size.getX(), center.getY()), DEBUG_DRAW_SHAPE_COLOR));
-            break;
+            break;*/
 
         default:
             assert(false && "Unable to draw invalid shape");
