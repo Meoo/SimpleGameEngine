@@ -37,27 +37,7 @@ public:
      */
     virtual void        update(sf::Time elapsed_time);
 
-protected:
-    friend class Entity;
-
-    /**
-     * Return an unique identifier for a new entity.
-     *
-     * _next_entity_id is initialized to 0, so we can have to use pre
-     * incrementation as 0 is reserved for the world.
-     *
-     * @return
-     */
-    Id                      allocateEntityId()              { return ++_next_entity_id; }
-
 private:
-    /**
-     * Next unique identifier for entities.
-     *
-     * Initialized to 0, and pre incremented in #allocateEntityId.
-     */
-    Id                      _next_entity_id;
-
     /**
      * Space partitioner used by this world.
      */

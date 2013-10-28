@@ -29,8 +29,6 @@ class WorldEntity;
 class Entity : public sf::Drawable
 {
 public:
-    typedef unsigned                    Id;
-
     typedef std::set<Entity *>          EntityList;
 
     typedef std::set<const Entity *>    ConstEntityList;
@@ -59,33 +57,7 @@ public:
     virtual                 ~Entity();
 
 
-    //---- Functions
-
-    /**
-     * Find a child entity with given id.
-     *
-     * @param entity_id
-     * @return Entity with this identifier or null pointer.
-     */
-    Entity *                findEntity(Id entity_id);
-
-    /**
-     * Find a child entity with given id. (const)
-     *
-     * @param entity_id
-     * @return Entity with this identifier or null pointer.
-     */
-    const Entity *          findEntity(Id entity_id) const;
-
-
     //---- Accessors
-
-    /**
-     * Get the unique identifier of this entity.
-     *
-     * @return identifier
-     */
-    Id                      getId() const               { return _id; }
 
     /**
      * Get the origin of this entity, relative to it's parent.
@@ -350,13 +322,6 @@ private:
     friend WorldEntity;
 
     // ----
-
-    /**
-     * Unique identifier for this entity.
-     *
-     * Identifier 0 is reserved for the WorldEntity.
-     */
-    Id                      _id;
 
     /**
      * Parent of this entity.

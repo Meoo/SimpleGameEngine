@@ -8,7 +8,7 @@
 #include "game/physics/TrivialSpacePartitioner.hpp"
 
 WorldEntity::WorldEntity()
-    : _next_entity_id(0), _space_partitioner(new TrivialSpacePartitioner())
+    : _space_partitioner(new TrivialSpacePartitioner())
 {
     setActive(false);
     setVisible(false);

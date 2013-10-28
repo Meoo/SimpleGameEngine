@@ -13,8 +13,7 @@
 #include "game/entities/WorldEntity.hpp"
 
 Entity::Entity(Entity * parent)
-    : _id(parent->getWorld()->allocateEntityId())
-    , _parent(parent), _dead(false), _active(true), _solid(true), _visible(true)
+    : _parent(parent), _dead(false), _active(true), _solid(true), _visible(true)
 {
     assert(parent);
 
@@ -33,24 +32,6 @@ Entity::~Entity()
         child->_parent = 0;
         delete child;
     }
-}
-
-Entity * Entity::findEntity(Id entity_id)
-{
-    for (EntityList::iterator it = _childs.begin(); it != _childs.end(); ++it)
-        if ((*it)->getId() == entity_id)
-            return (*it);
-
-    return 0;
-}
-
-const Entity * Entity::findEntity(Id entity_id) const
-{
-    for (EntityList::const_iterator it = _childs.begin(); it != _childs.end(); ++it)
-        if ((*it)->getId() == entity_id)
-            return (*it);
-
-    return 0;
 }
 
 void Entity::setParent(Entity * parent)
@@ -264,7 +245,7 @@ void Entity::drawDebug(sf::RenderTarget & target, sf::RenderStates states) const
 #endif
 
 Entity::Entity()
-    : _id(0), _parent(0), _dead(false), _active(true), _solid(false), _visible(true)
+    : _parent(0), _dead(false), _active(true), _solid(false), _visible(true)
 {
 }
 
