@@ -13,7 +13,7 @@
 #include "game/entities/WorldEntity.hpp"
 
 Entity::Entity(Entity * parent)
-    : _parent(parent), _dead(false), _active(true), _solid(true), _visible(true)
+    : _parent(parent), _dead(false), _active(true), _solid(true), _visible(true), _first_pointer(0)
 {
     assert(parent);
 
@@ -32,6 +32,10 @@ Entity::~Entity()
         child->_parent = 0;
         delete child;
     }
+
+    // Clean all weak pointers
+    for (Pointer * p = _first_pointer; p != 0; p = p->_next)
+        p->_entity = 0;
 }
 
 void Entity::setParent(Entity * parent)
@@ -245,7 +249,7 @@ void Entity::drawDebug(sf::RenderTarget & target, sf::RenderStates states) const
 #endif
 
 Entity::Entity()
-    : _parent(0), _dead(false), _active(true), _solid(false), _visible(true)
+    : _parent(0), _dead(false), _active(true), _solid(false), _visible(true), _first_pointer(0)
 {
 }
 
@@ -307,4 +311,59 @@ void Entity::removeChild(Entity * entity)
     assert(_childs.find(entity) != _childs.end());
 
     _childs.erase(entity);
+}
+
+// ----
+
+Entity::Pointer::Pointer()
+    : _entity(0), _previous(0), _next(0)
+{
+}
+
+Entity::Pointer::Pointer(Entity * pointee)
+    : _entity(pointee), _previous(0), _next(pointee->_first_pointer)
+{
+    _next->_previous = this;
+    pointee->_first_pointer = this;
+}
+
+Entity::Pointer::Pointer(Pointer & copy)
+    : _entity(copy._entity), _previous(&copy), _next(copy._next)
+{
+    copy._next = this;
+}
+
+Entity::Pointer::~Pointer()
+{
+    reset();
+}
+
+void Entity::Pointer::reset()
+{
+    if (_entity)
+    {
+        if (!_previous)
+        {
+            _entity->_first_pointer = _next;
+        }
+        else
+        {
+            _previous->_next = _next;
+        }
+        _next->_previous = _previous;
+    }
+}
+
+void Entity::Pointer::reset(Entity * entity)
+{
+    reset();
+
+    _entity = entity;
+    if (entity)
+    {
+        _previous = 0;
+        _next = _entity->_first_pointer;
+        _next->_previous = this;
+        _entity->_first_pointer = this;
+    }
 }

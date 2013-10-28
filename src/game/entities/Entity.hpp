@@ -25,10 +25,15 @@ class WorldEntity;
  *
  * Anything that exist on the world, or that can affect the world should be
  * an entity.
+ *
+ * Do not store a pointer to an Entity, instead, use Entity::Pointer, which is
+ * a weak pointer using double linked lists.
  */
 class Entity : public sf::Drawable
 {
 public:
+    class                               Pointer;
+
     typedef std::set<Entity *>          EntityList;
 
     typedef std::set<const Entity *>    ConstEntityList;
@@ -319,7 +324,12 @@ private:
      * WorldEntity have to be friend to use the constructor #Entity(), and
      * to override #getWorldImpl.
      */
-    friend WorldEntity;
+    friend class WorldEntity;
+
+    /**
+     * Weak pointer must have access to the first pointer property.
+     */
+    friend class Pointer;
 
     // ----
 
@@ -368,6 +378,11 @@ private:
      * Childs of this entity.
      */
     EntityList              _childs;
+
+    /**
+     * Head of the Pointer's double linked list.
+     */
+    Pointer *               _first_pointer;
 
     // ----
 
@@ -436,6 +451,86 @@ private:
      */
     virtual Vector          getWorldOriginImpl() const  { return _parent->getWorldOrigin() + getOrigin(); }
 
+};
+
+// ----
+
+/**
+ * Weak pointer for entites.
+ *
+ * It uses a double linked list to keep track of all the pointers pointing
+ * to an Entity.
+ */
+class Entity::Pointer
+{
+public:
+    /**
+     * Create an empty Entity pointer.
+     */
+                    Pointer();
+
+    /**
+     * Value constructor. Create pointer pointing to an Entity.
+     *
+     * @param pointee
+     */
+                    Pointer(Entity * pointee);
+
+    /**
+     * Copy constructor.
+     */
+                    Pointer(Pointer & copy);
+
+    /**
+     * Destructor.
+     */
+                    ~Pointer();
+
+    /**
+     * Get the pointer, or NULL if the Entity does not exist.
+     *
+     * @return a pointer to an Entity, or NULL.
+     */
+          Entity *  get()           { return _entity; }
+    /**
+     * Get the pointer, or NULL if the Entity does not exist.
+     *
+     * @return a pointer to an Entity, or NULL.
+     */
+    const Entity *  get() const     { return _entity; }
+
+    /**
+     * Reset the pointer, so it does not point to anything.
+     */
+    void            reset();
+
+    /**
+     * Reset the pointer, so it point to another Entity.
+     *
+     * @param entity
+     */
+    void            reset(Entity * entity);
+
+private:
+    /**
+     * We must friend Entity so it can create
+     */
+    friend class    Entity;
+
+    /**
+     * Entity pointed by this Pointer.
+     */
+    Entity *        _entity;
+
+    /**
+     * Previous pointer in the double linked list.
+     */
+    Pointer *       _previous;
+
+    /**
+     * Next pointer in the double linked list.
+     */
+    Pointer *       _next;
 };
 
 #endif // _ENTITY_HPP_
