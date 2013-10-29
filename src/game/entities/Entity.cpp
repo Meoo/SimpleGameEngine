@@ -321,10 +321,18 @@ Entity::Pointer::Pointer()
 }
 
 Entity::Pointer::Pointer(Entity * pointee)
-    : _entity(pointee), _previous(0), _next(pointee->_first_pointer)
+    : _entity(pointee), _previous(0)
 {
-    _next->_previous = this;
-    pointee->_first_pointer = this;
+    if (pointee)
+    {
+        _next->_previous = this;
+        pointee->_first_pointer = this;
+        _next = pointee->_first_pointer;
+    }
+    else
+    {
+        _next = 0;
+    }
 }
 
 Entity::Pointer::Pointer(Pointer & copy)
@@ -354,12 +362,12 @@ void Entity::Pointer::reset()
     }
 }
 
-void Entity::Pointer::reset(Entity * entity)
+void Entity::Pointer::reset(Entity * pointee)
 {
     reset();
 
-    _entity = entity;
-    if (entity)
+    _entity = pointee;
+    if (pointee)
     {
         _previous = 0;
         _next = _entity->_first_pointer;
