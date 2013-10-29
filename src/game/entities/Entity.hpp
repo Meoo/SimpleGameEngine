@@ -34,6 +34,8 @@ class Entity : public sf::Drawable
 public:
     class                               Pointer;
 
+    class                               ConstPointer;
+
     typedef std::set<Entity *>          EntityList;
 
     typedef std::set<const Entity *>    ConstEntityList;
@@ -492,6 +494,7 @@ public:
      * @return a pointer to an Entity, or NULL.
      */
           Entity *  get()           { return _entity; }
+
     /**
      * Get the pointer, or NULL if the Entity does not exist.
      *
@@ -509,7 +512,7 @@ public:
      *
      * @param entity
      */
-    void            reset(Entity * entity);
+    void            reset(Entity * pointee);
 
 private:
     /**
@@ -531,6 +534,73 @@ private:
      * Next pointer in the double linked list.
      */
     Pointer *       _next;
+};
+
+// ----
+
+/**
+ * Weak pointer for entites (constant version).
+ *
+ * It uses a double linked list to keep track of all the pointers pointing
+ * to an Entity.
+ */
+class Entity::ConstPointer
+{
+public:
+    /**
+     * Create an empty Entity pointer.
+     */
+                    ConstPointer()
+                        {}
+
+    /**
+     * Value constructor. Create pointer pointing to an Entity.
+     *
+     * @param pointee
+     */
+                    ConstPointer(const Entity * pointee)
+                        : _pointer(const_cast<Entity*>(pointee)) {}
+
+    /**
+     * Copy constructor.
+     */
+                    ConstPointer(ConstPointer & copy)
+                        : _pointer(copy._pointer) {}
+
+    /**
+     * Pointer conversion constructor.
+     */
+                    ConstPointer(const Pointer & copy)
+                        : _pointer(const_cast<Entity*>(copy.get())) {}
+
+    /**
+     * Get the pointer, or NULL if the Entity does not exist.
+     *
+     * @return a pointer to an Entity, or NULL.
+     */
+    const Entity *  get() const
+                        { return _pointer.get(); }
+
+    /**
+     * Reset the pointer, so it does not point to anything.
+     */
+    void            reset()
+                        { _pointer.reset(); }
+
+    /**
+     * Reset the pointer, so it point to another Entity.
+     *
+     * @param entity
+     */
+    void            reset(const Entity * pointee)
+                        { _pointer.reset(const_cast<Entity*>(pointee)); }
+
+private:
+    /**
+     * Wrapped Enitity Pointer.
+     */
+    Pointer         _pointer;
+
 };
 
 #endif // _ENTITY_HPP_
