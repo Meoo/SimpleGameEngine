@@ -8,6 +8,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <Mw/Math/Rational.hpp>
+
 #include "Config.hpp"
 
 #include "screens/Screen.hpp"
@@ -75,7 +77,38 @@ int main(int argc, char ** argv)
 
         // Normalize view to default size, avoiding a lot of work to handle other resolutions
         // On the other hand, reduces the quality when the default resolution is not used
-        window.setView(sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)));
+        if (!WINDOW_KEEP_RATIO)
+        {
+            window.setView(sf::View(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)));
+        }
+        else
+        {
+            typedef mw::math::Rational<unsigned> Rational;
+
+            Rational original_ratio(WINDOW_WIDTH, WINDOW_HEIGHT);
+            Rational new_ratio(Config::width, Config::height);
+
+            sf::View view(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+
+            if (original_ratio > new_ratio)
+            {
+                // Center the view vertically
+                float diff = ((Config::width * WINDOW_HEIGHT) / Config::height) / ((float) WINDOW_WIDTH);
+                float dec = (1.f - diff) / 2.f;
+
+                view.setViewport(sf::FloatRect(0, dec, 1, diff));
+            }
+            else if (original_ratio < new_ratio)
+            {
+                // Center the view horizontally
+                float diff = ((Config::height * WINDOW_WIDTH) / Config::width) / ((float) WINDOW_HEIGHT);
+                float dec = (1.f - diff) / 2.f;
+
+                view.setViewport(sf::FloatRect(dec, 0, diff, 1));
+            }
+
+            window.setView(view);
+        }
 
         // TODO Main Make the view ratio independent and draw black borders ?
 
@@ -184,6 +217,10 @@ int main(int argc, char ** argv)
                     std::abs(((total_clock.getElapsedTime().asMilliseconds() / 11) % 510) - 255),
                     std::abs(((total_clock.getElapsedTime().asMilliseconds() / 36) % 510) - 255),
                     std::abs(((total_clock.getElapsedTime().asMilliseconds() / 24) % 510) - 255)));
+#else
+                // Normal background : Black
+                if (WINDOW_KEEP_RATIO)
+                    window.clear(sf::Color::Black);
 #endif
 
                 // Draw

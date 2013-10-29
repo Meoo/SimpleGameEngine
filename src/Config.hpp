@@ -27,6 +27,7 @@ const bool       WINDOW_FULLSCREEN  = false;
 const bool       WINDOW_BORDERLESS  = false;
 const bool       WINDOW_VSYNC       = false;
 const unsigned   WINDOW_FRAMERATE   = 60;
+const bool       WINDOW_KEEP_RATIO  = true;
 
 /**@}*/
 
