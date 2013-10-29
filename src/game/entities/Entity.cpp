@@ -304,7 +304,6 @@ void Entity::addChild(Entity * entity)
     _childs.insert(entity);
 }
 
-
 void Entity::removeChild(Entity * entity)
 {
     assert(entity);
@@ -335,8 +334,8 @@ Entity::Pointer::Pointer(Entity * pointee)
     }
 }
 
-Entity::Pointer::Pointer(Pointer & copy)
-    : _entity(copy._entity), _previous(&copy), _next(copy._next)
+Entity::Pointer::Pointer(const Pointer & copy)
+    : _entity(copy._entity), _previous(const_cast<Pointer*>(&copy)), _next(copy._next)
 {
     copy._next = this;
 }

@@ -481,7 +481,7 @@ public:
     /**
      * Copy constructor.
      */
-                    Pointer(Pointer & copy);
+                    Pointer(const Pointer & copy);
 
     /**
      * Destructor.
@@ -493,14 +493,7 @@ public:
      *
      * @return a pointer to an Entity, or NULL.
      */
-          Entity *  get()           { return _entity; }
-
-    /**
-     * Get the pointer, or NULL if the Entity does not exist.
-     *
-     * @return a pointer to an Entity, or NULL.
-     */
-    const Entity *  get() const     { return _entity; }
+    Entity *        get() const     { return _entity; }
 
     /**
      * Reset the pointer, so it does not point to anything.
@@ -528,12 +521,12 @@ private:
     /**
      * Previous pointer in the double linked list.
      */
-    Pointer *       _previous;
+    mutable Pointer * _previous;
 
     /**
      * Next pointer in the double linked list.
      */
-    Pointer *       _next;
+    mutable Pointer * _next;
 };
 
 // ----
@@ -564,14 +557,14 @@ public:
     /**
      * Copy constructor.
      */
-                    ConstPointer(ConstPointer & copy)
+                    ConstPointer(const ConstPointer & copy)
                         : _pointer(copy._pointer) {}
 
     /**
      * Pointer conversion constructor.
      */
                     ConstPointer(const Pointer & copy)
-                        : _pointer(const_cast<Entity*>(copy.get())) {}
+                        : _pointer(copy) {}
 
     /**
      * Get the pointer, or NULL if the Entity does not exist.
