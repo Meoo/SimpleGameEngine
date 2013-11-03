@@ -13,7 +13,7 @@
 #include "game/entities/WorldEntity.hpp"
 
 Entity::Entity(Entity * parent)
-    : _parent(parent), _dead(false), _active(true), _first_pointer(0)
+    : _parent(parent), _world(parent->getWorld()), _dead(false), _active(true), _first_pointer(0)
 {
     assert(parent);
 
@@ -47,8 +47,8 @@ void Entity::setParent(Entity * parent)
     _parent->addChild(this);
 }
 
-Entity::Entity()
-    : _parent(0), _dead(false), _active(false), _first_pointer(0)
+Entity::Entity(WorldEntity * this_world)
+    : _parent(0), _world(this_world), _dead(false), _active(false), _first_pointer(0)
 {
 }
 
@@ -90,6 +90,7 @@ void Entity::addChild(Entity * entity)
 {
     assert(entity);
     assert(_childs.find(entity) == _childs.end());
+    assert(entity->_world == _world);
 
     _childs.insert(entity);
 }

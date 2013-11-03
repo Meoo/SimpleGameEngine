@@ -16,7 +16,7 @@
 class WorldEntity : public Entity
 {
 public:
-                        WorldEntity()                   {}
+                        WorldEntity() : Entity(this)    {}
 
     virtual             ~WorldEntity()                  {}
 
@@ -28,28 +28,6 @@ public:
      * @param elapsed_time
      */
     virtual void        update(sf::Time elapsed_time);
-
-
-private:
-    /**
-     * Private virtual function, only overrided by WorldEntity.
-     *
-     * @return this.
-     *
-     * @see Entity#getWorld
-     * @see Entity#getWorldImpl
-     */
-    virtual WorldEntity *   getWorldImpl()                  { return this; }
-
-    /**
-     * Private virtual function, only overrided by WorldEntity. (const)
-     *
-     * @return this.
-     *
-     * @see Entity#getWorld
-     * @see Entity#getWorldImpl
-     */
-    virtual const WorldEntity * getWorldImpl() const        { return this; }
 
 };
 

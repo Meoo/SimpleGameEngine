@@ -105,14 +105,14 @@ public:
      *
      * @return world
      */
-    WorldEntity *           getWorld()                  { return getWorldImpl(); }
+    WorldEntity *           getWorld()                  { return _world; }
 
     /**
      * Get the world this entity is in.
      *
      * @return world
      */
-    const WorldEntity *     getWorld() const            { return getWorldImpl(); }
+    const WorldEntity *     getWorld() const            { return _world; }
 
     /**
      * Mark this entity as dead.
@@ -214,6 +214,13 @@ private:
     Entity *                _parent;
 
     /**
+     * World this entity is in.
+     *
+     * It can be equal to the parent. WorldEntity have itself as world.
+     */
+    WorldEntity * const     _world;
+
+    /**
      * Flag indicating if this entity should be withdrawn out of the World.
      *
      * @see #isDead
@@ -244,9 +251,11 @@ private:
     /**
      * Special constructor to be used only by WorldEntity.
      *
-     * Set id to 0 and parent to null pointer.
+     * Set parent to null pointer, and inactive.
+     *
+     * @param this_world A pointer to the world, which should be "this".
      */
-                            Entity();
+                            Entity(WorldEntity * this_world);
 
     /**
      * Update this entity, and all child entities.
@@ -275,26 +284,6 @@ private:
      * @param entity
      */
     void                    removeChild(Entity * entity);
-
-    /**
-     * Private virtual function, only overrided by WorldEntity.
-     *
-     * @return the world this entity is in.
-     *
-     * @see #getWorld
-     * @see WorldEntity#getWorldImpl
-     */
-    virtual WorldEntity *   getWorldImpl()              { return _parent->getWorld(); }
-
-    /**
-     * Private virtual function, only overrided by WorldEntity. (const)
-     *
-     * @return the world this entity is in.
-     *
-     * @see #getWorld
-     * @see WorldEntity#getWorldImpl
-     */
-    virtual const WorldEntity * getWorldImpl() const    { return _parent->getWorld(); }
 
 };
 
