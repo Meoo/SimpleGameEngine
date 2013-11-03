@@ -11,7 +11,7 @@
 #include "game/physics/Collisions.hpp"
 #include "game/entities/Entity.hpp"
 #include "game/entities/WorldEntity.hpp"
-
+/*
 namespace
 {
     void buildEntityList(std::vector<Entity *> & entity_list, Entity * entity)
@@ -47,7 +47,7 @@ void TrivialSpacePartitioner::updateEntities(WorldEntity * world)
 
         std::vector<Entity *>::iterator it2 = it;
         ++it2;
-        for (/**/ ; it2 != list.end(); ++it2)
+        for (/ ** / ; it2 != list.end(); ++it2)
         {
             if ((*it2)->getBounds().getLowerLimit().getX() > x_up) break;
 
@@ -68,4 +68,4 @@ TrivialSpacePartitioner::findBodiesInRectangle( const sf::FloatRect& rectangle) 
 {
     // TODO TrivialSpacePartitioner::findBodiesInRectangle
     return BodyList();
-}
+}*/

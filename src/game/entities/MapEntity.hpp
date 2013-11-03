@@ -20,10 +20,6 @@ public:
 
     virtual             ~MapEntity();
 
-    virtual Bounds      getBounds() const;
-
-    virtual BodyList    getBodies(const Bounds & area = Bounds()) const;
-
 private:
     MapHandle           _map;
 

@@ -29,7 +29,7 @@ class WorldEntity;
  * Do not store a pointer to an Entity, instead, use Entity::Pointer, which is
  * a weak pointer using double linked lists.
  */
-class Entity : public sf::Drawable
+class Entity
 {
 public:
     class                               Pointer;
@@ -39,12 +39,6 @@ public:
     typedef std::set<Entity *>          EntityList;
 
     typedef std::set<const Entity *>    ConstEntityList;
-
-    typedef std::vector<Body>           BodyList; // TODO Entity BodyList use pointers?
-
-    typedef mw::math::Vector2<float>    Vector;
-
-    typedef mw::math::Bounds2<float>    Bounds;
 
 
     //---- Constructor & Destructor
@@ -65,20 +59,6 @@ public:
 
 
     //---- Accessors
-
-    /**
-     * Get the origin of this entity, relative to it's parent.
-     *
-     * @return
-     */
-    virtual Vector          getOrigin() const = 0;
-
-    /**
-     * Get the origin of this entity, relative to the world.
-     *
-     * @return
-     */
-    Vector                  getWorldOrigin() const      { return getWorldOriginImpl(); }
 
     /**
      * Change the parent of this entity.
@@ -135,49 +115,6 @@ public:
     const WorldEntity *     getWorld() const            { return getWorldImpl(); }
 
     /**
-     * Get the physical bounds of this entity.
-     *
-     * The returned rectangle should be as small as possible, as it will be
-     * used by Quadtree to locate this entity in the world.
-     *
-     * @note Child entities does not have to be in it's parent's bounds.
-     *
-     * @return rectangle covering the physical representation of the entity.
-     */
-    virtual Bounds          getBounds() const = 0;
-
-    /**
-     * Get bodies representing physically this entity.
-     *
-     * All the bodies should be included in the rectangle returned by
-     * #getBounds, or collisions will be chaotic.
-     *
-     * If you do not want your entity to be solid, return an empty list
-     * and use #setSolid to set the entity to a non solid state.
-     *
-     * TODO Entity::getBodies const return?
-     *
-     * @param area (optional) rectangle which the returned bodies should
-     *             intersect with.
-     *             It is a hint used to reduce the number of results.
-     *             If no area is given, all bodies should be returned.
-     *
-     * @return
-     */
-    virtual BodyList        getBodies(const Bounds & area = Bounds()) const = 0;
-
-    /**
-     * Get the visual bounds of this entity.
-     *
-     * The returned rectangle should be as small as possible, as it will be
-     * used by draw functions to optimize out this entity when it is
-     * out of the screen.
-     *
-     * @return rectangle covering the visual representation of the entity.
-     */
-    virtual Bounds          getRenderBounds() const     { return getBounds(); }
-
-    /**
      * Mark this entity as dead.
      *
      * Killing an entity will also kill it's childrens.
@@ -227,57 +164,6 @@ public:
      */
     bool                    isActive() const            { return _active; }
 
-    /**
-     * Set the solidity state of this entity.
-     *
-     * @param solid
-     *
-     * @see #isSolid
-     */
-    void                    setSolid(bool solid)        { _solid = solid; }
-
-    /**
-     * Check if this entity is solid or not.
-     *
-     * A solid entity will be able to collide with other entities, even
-     * if #getBodies return value is not empty.
-     *
-     * An entity is solid by default.
-     *
-     * @return
-     */
-    bool                    isSolid() const             { return _solid; }
-
-    /**
-     * Set the visibility state of this entity.
-     *
-     * @param visible
-     *
-     * @see #isVisible
-     */
-    void                    setVisible(bool visible)    { _visible = visible; }
-
-    /**
-     * Check if this entity is visible or invisible.
-     *
-     * An invisible entity will never be drawn on screen.
-     *
-     * An entity is visible by default.
-     *
-     * @return
-     */
-    bool                    isVisible() const           { return _visible; }
-
-#ifndef NDEBUG
-    /**
-     * Draw this entity's and all child entities' collision masks.
-     *
-     * @param target
-     * @param states
-     */
-    void                    drawDebug(sf::RenderTarget & target, sf::RenderStates states) const;
-#endif
-
 
 protected:
     //---- Callbacks
@@ -305,21 +191,6 @@ protected:
      */
     virtual void            onChildDeath(const Entity * child) {}
 
-    /**
-     * Called when this entity is drawn.
-     *
-     * This function will be called every frame if the object is visible and
-     * on screen. Overload it to draw the object as you want.
-     *
-     * An entity is drawn before it's childrens, so it will appear under them.
-     *
-     * @param target
-     * @param states
-     */
-    virtual void            onDraw(sf::RenderTarget & target, sf::RenderStates states) const {}
-
-    // From sf::Drawable
-    void                    draw(sf::RenderTarget & target, sf::RenderStates states) const;
 
 private:
     /**
@@ -357,24 +228,6 @@ private:
      * @see #isActive
      */
     bool                    _active;
-
-    /**
-     * Flag indicating if this entity is solid.
-     *
-     * A non-solid entity won't be able to collide anything.
-     *
-     * @see #isSolid
-     */
-    bool                    _solid;
-
-    /**
-     * Flag indicating if this entity is visible.
-     *
-     * An invisible entity will not be drawn on screen.
-     *
-     * @see #isVisible
-     */
-    bool                    _visible;
 
     /**
      * Childs of this entity.
@@ -442,16 +295,6 @@ private:
      * @see WorldEntity#getWorldImpl
      */
     virtual const WorldEntity * getWorldImpl() const    { return _parent->getWorld(); }
-
-    /**
-     * Private virtual function, only overrided by WorldEntity.
-     *
-     * @return the origin of this entity, relative to the world.
-     *
-     * @see #getWorld
-     * @see WorldEntity#getWorldImpl
-     */
-    virtual Vector          getWorldOriginImpl() const  { return _parent->getWorldOrigin() + getOrigin(); }
 
 };
 

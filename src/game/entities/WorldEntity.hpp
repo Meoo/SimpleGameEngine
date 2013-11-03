@@ -8,8 +8,6 @@
 
 #include "game/entities/Entity.hpp"
 
-#include "game/physics/SpacePartitioner.hpp"
-
 /**
  * The world is the root entity, father of everything.
  *
@@ -18,15 +16,9 @@
 class WorldEntity : public Entity
 {
 public:
-                        WorldEntity();
+                        WorldEntity()                   {}
 
     virtual             ~WorldEntity()                  {}
-
-    virtual Vector      getOrigin() const               { return Vector(); }
-
-    virtual Bounds      getBounds() const;
-
-    virtual BodyList    getBodies(const Bounds & area = Bounds()) const;
 
     /**
      * Entity#update function is exposed on the world entity.
@@ -37,14 +29,8 @@ public:
      */
     virtual void        update(sf::Time elapsed_time);
 
+
 private:
-    /**
-     * Space partitioner used by this world.
-     */
-    SpacePartitioner *      _space_partitioner;
-
-    //----
-
     /**
      * Private virtual function, only overrided by WorldEntity.
      *
@@ -64,16 +50,6 @@ private:
      * @see Entity#getWorldImpl
      */
     virtual const WorldEntity * getWorldImpl() const        { return this; }
-
-    /**
-     * Private virtual function, only overrided by WorldEntity. (const)
-     *
-     * @return Origin vector (0, 0).
-     *
-     * @see Entity#getWorldOrigin
-     * @see Entity#getWorldOriginImpl
-     */
-    virtual Vector          getWorldOriginImpl() const      { return Vector(); }
 
 };
 

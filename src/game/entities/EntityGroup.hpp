@@ -17,13 +17,10 @@ class EntityGroup : public Entity
 {
 public:
                         EntityGroup(Entity * parent) : Entity(parent)
-                            { setActive(false); setSolid(false); setVisible(false); }
+                            { setActive(false); }
 
     virtual             ~EntityGroup()
                             {}
-
-    virtual Vector      getOrigin() const
-                            { return Vector(); }
 
 };
 
