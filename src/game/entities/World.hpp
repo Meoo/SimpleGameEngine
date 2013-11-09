@@ -1,10 +1,10 @@
 /**
- * @file   WorldEntity.hpp
+ * @file   World.hpp
  * @author Bastien Brunnenstein
  */
 
-#ifndef _WORLDENTITY_HPP_
-#define _WORLDENTITY_HPP_
+#ifndef _WORLD_HPP_
+#define _WORLD_HPP_
 
 #include "game/entities/Entity.hpp"
 
@@ -31,4 +31,4 @@ public:
 
 };
 
-#endif // _WORLDENTITY_HPP_
+#endif // _WORLDE_HPP_

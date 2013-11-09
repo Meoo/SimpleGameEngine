@@ -1,5 +1,5 @@
 /**
- * @file   WorldEntity.cpp
+ * @file   World.cpp
  * @author Bastien Brunnenstein
  */
 
