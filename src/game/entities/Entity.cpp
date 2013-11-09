@@ -10,7 +10,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Config.hpp"
-#include "game/entities/WorldEntity.hpp"
+#include "game/entities/World.hpp"
 
 Entity::Entity(Entity * parent)
     : _parent(parent), _world(parent->getWorld()), _dead(false), _active(true), _first_pointer(0)
@@ -47,8 +47,8 @@ void Entity::setParent(Entity * parent)
     _parent->addChild(this);
 }
 
-Entity::Entity(WorldEntity * this_world)
-    : _parent(0), _world(this_world), _dead(false), _active(false), _first_pointer(0)
+Entity::Entity(World * this_world)
+    : _parent(this), _world(this_world), _dead(false), _active(false), _first_pointer(0)
 {
 }
 

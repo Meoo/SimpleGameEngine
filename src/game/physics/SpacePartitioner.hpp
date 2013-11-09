@@ -12,7 +12,7 @@
 
 #include "game/physics/Body.hpp"
 
-class WorldEntity;
+class World;
 
 /**
  * Allow a quicker resolution of collisions by grouping entities spatially.
@@ -34,7 +34,7 @@ public:
      *
      * @param world
      */
-    virtual void        updateEntities(WorldEntity * world) = 0;
+    virtual void        updateEntities(World * world) = 0;
 
     // TODO SpacePartitioner def computeCollisions, computeCollisionsWithEntity
 

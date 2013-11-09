@@ -18,7 +18,7 @@
 
 #include "game/physics/Body.hpp"
 
-class WorldEntity;
+class World;
 
 /**
  * Common interface for entities.
@@ -105,14 +105,14 @@ public:
      *
      * @return world
      */
-    WorldEntity *           getWorld()                  { return _world; }
+    World *           getWorld()                  { return _world; }
 
     /**
      * Get the world this entity is in.
      *
      * @return world
      */
-    const WorldEntity *     getWorld() const            { return _world; }
+    const World *     getWorld() const            { return _world; }
 
     /**
      * Mark this entity as dead.
@@ -197,7 +197,7 @@ private:
      * WorldEntity have to be friend to use the constructor #Entity(), and
      * to override #getWorldImpl.
      */
-    friend class WorldEntity;
+    friend class World;
 
     /**
      * Weak pointer must have access to the first pointer property.
@@ -218,7 +218,7 @@ private:
      *
      * It can be equal to the parent. WorldEntity have itself as world.
      */
-    WorldEntity * const     _world;
+    World * const           _world;
 
     /**
      * Flag indicating if this entity should be withdrawn out of the World.
@@ -255,7 +255,7 @@ private:
      *
      * @param this_world A pointer to the world, which should be "this".
      */
-                            Entity(WorldEntity * this_world);
+                            Entity(World * this_world);
 
     /**
      * Update this entity, and all child entities.

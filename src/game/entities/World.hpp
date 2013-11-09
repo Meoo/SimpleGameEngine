@@ -13,12 +13,12 @@
  *
  * The world allocates identifiers to other entities.
  */
-class WorldEntity : public Entity
+class World : public Entity
 {
 public:
-                        WorldEntity() : Entity(this)    {}
+                        World() : Entity(this)    {}
 
-    virtual             ~WorldEntity()                  {}
+    virtual             ~World()                  {}
 
     /**
      * Entity#update function is exposed on the world entity.

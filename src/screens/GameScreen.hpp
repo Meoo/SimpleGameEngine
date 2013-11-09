@@ -8,7 +8,7 @@
 
 #include "screens/Screen.hpp"
 
-#include "game/entities/WorldEntity.hpp"
+#include "game/entities/World.hpp"
 
 class GameScreen : public Screen
 {
@@ -25,7 +25,7 @@ protected:
     virtual void        draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
-    WorldEntity         _world;
+    World               _world;
 
 #ifndef NDEBUG
     bool                _debug;
