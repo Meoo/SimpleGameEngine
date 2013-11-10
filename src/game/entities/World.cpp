@@ -5,11 +5,14 @@
 
 #include "game/entities/World.hpp"
 
-#include "game/physics/TrivialSpacePartitioner.hpp"
+World::World(Renderer& renderer)
+    : Entity(this), _renderer(renderer)
+{
+}
 
 void World::update(sf::Time elapsed_time)
 {
-    // TODO WorldEntity::update collisions
+    // TODO World::update collisions
 
     Entity::update(elapsed_time);
 }

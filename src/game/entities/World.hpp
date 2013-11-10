@@ -7,6 +7,9 @@
 #define _WORLD_HPP_
 
 #include "game/entities/Entity.hpp"
+#include "game/render/Renderer.hpp"
+
+#include "game/render/Sprite.hpp"
 
 /**
  * The world is the root entity, father of everything.
@@ -16,9 +19,17 @@
 class World : public Entity
 {
 public:
-                        World() : Entity(this)    {}
+    /**
+     * World constructor.
+     *
+     * @param renderer The Renderer entities in this world will depend on.
+     */
+    explicit            World(Renderer & renderer);
 
-    virtual             ~World()                  {}
+    /**
+     * Virtual destructor.
+     */
+    virtual             ~World() {}
 
     /**
      * Entity#update function is exposed on the world entity.
@@ -28,6 +39,12 @@ public:
      * @param elapsed_time
      */
     virtual void        update(sf::Time elapsed_time);
+
+private:
+    /**
+     * Renderer used to display this world.
+     */
+    Renderer & _renderer;
 
 };
 

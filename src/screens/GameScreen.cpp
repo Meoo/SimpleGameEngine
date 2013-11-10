@@ -8,6 +8,7 @@
 #include "Config.hpp"
 
 GameScreen::GameScreen()
+    : _world(_renderer)
 {
 #ifndef NDEBUG
     _debug = false;
@@ -31,11 +32,10 @@ void GameScreen::onKeyPressed(sf::Keyboard::Key key)
 void GameScreen::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
     /* TODO GameScreen::draw Draw everything
-
-    target.draw(_world);
-
 #ifndef NDEBUG
     if (_debug)
         _world.drawDebug(target, states);
 #endif*/
+
+    _renderer.render(target);
 }

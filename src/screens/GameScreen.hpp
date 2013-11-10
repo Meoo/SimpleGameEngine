@@ -8,6 +8,8 @@
 
 #include "screens/Screen.hpp"
 
+#include "game/render/Renderer.hpp"
+
 #include "game/entities/World.hpp"
 
 class GameScreen : public Screen
@@ -25,6 +27,8 @@ protected:
     virtual void        draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 private:
+    Renderer            _renderer;
+
     World               _world;
 
 #ifndef NDEBUG
