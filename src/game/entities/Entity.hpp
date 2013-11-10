@@ -194,8 +194,7 @@ protected:
 
 private:
     /**
-     * WorldEntity have to be friend to use the constructor #Entity(), and
-     * to override #getWorldImpl.
+     * World have to be friend to use the constructor #Entity().
      */
     friend class World;
 
@@ -209,14 +208,14 @@ private:
     /**
      * Parent of this entity.
      *
-     * WorldEntity have a null pointer as parent, and it should be the only one.
+     * World have himself as parent, and should be the only one.
      */
     Entity *                _parent;
 
     /**
      * World this entity is in.
      *
-     * It can be equal to the parent. WorldEntity have itself as world.
+     * It can be equal to the parent. World have itself as world.
      */
     World * const           _world;
 
@@ -249,7 +248,7 @@ private:
     // ----
 
     /**
-     * Special constructor to be used only by WorldEntity.
+     * Special constructor to be used only by World.
      *
      * Set parent to null pointer, and inactive.
      *
