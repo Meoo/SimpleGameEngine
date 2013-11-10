@@ -22,7 +22,7 @@ Entity::Entity(Entity * parent)
 
 Entity::~Entity()
 {
-    assert(!_parent);
+    assert(!_parent || (this == _parent));
 
     // Release all childs
     for (EntityList::iterator it = _childs.begin(); it != _childs.end(); ++it)
