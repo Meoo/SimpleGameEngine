@@ -153,7 +153,7 @@ void Resources::Handle<T>::reset(resource_t & resource)
 }
 
 template<class T> inline
-void Resources::Handle<T>::reset(Handle & handle)
+void Resources::Handle<T>::reset(const Handle & handle)
 {
     if (handle._resource)
         reset(*handle._resource);

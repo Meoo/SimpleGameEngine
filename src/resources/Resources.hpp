@@ -60,7 +60,7 @@ namespace Resources
 
         void        reset();
         void        reset(resource_t & resource);
-        void        reset(Handle & handle);
+        void        reset(const Handle & handle);
 
         bool        isReady() const;
 
@@ -68,7 +68,7 @@ namespace Resources
         const T &   get() const;
 
     private:
-        resource_t * _resource;
+        mutable resource_t * _resource;
 
     }; // class Handle<T>
 
