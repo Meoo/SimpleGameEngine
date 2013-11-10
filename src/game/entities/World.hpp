@@ -7,9 +7,8 @@
 #define _WORLD_HPP_
 
 #include "game/entities/Entity.hpp"
-#include "game/render/Renderer.hpp"
 
-#include "game/render/Sprite.hpp"
+#include "game/render/Renderer.hpp"
 
 /**
  * The world is the root entity, father of everything.
