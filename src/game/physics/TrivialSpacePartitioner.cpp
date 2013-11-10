@@ -10,7 +10,7 @@
 
 #include "game/physics/Collisions.hpp"
 #include "game/entities/Entity.hpp"
-#include "game/entities/WorldEntity.hpp"
+#include "game/entities/World.hpp"
 /*
 namespace
 {
@@ -32,7 +32,7 @@ namespace
     }
 }
 
-void TrivialSpacePartitioner::updateEntities(WorldEntity * world)
+void TrivialSpacePartitioner::updateEntities(World * world)
 {
     std::vector<Entity *> list;
 
