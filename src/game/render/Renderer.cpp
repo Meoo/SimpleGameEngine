@@ -14,10 +14,6 @@ Renderer::Renderer()
 {
 }
 
-Renderer::~Renderer()
-{
-}
-
 void Renderer::render(sf::RenderTarget & target) const
 {
     _render_target = &target;
