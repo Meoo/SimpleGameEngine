@@ -27,7 +27,8 @@ void Renderer::render(sf::RenderTarget & target) const
     for (std::deque<RPtr>::iterator it = _render_list.begin();
             it != _render_list.end(); ++it)
     {
-        (*it)->render();
+        if ((*it)->isVisible())
+            (*it)->render();
     }
 }
 
