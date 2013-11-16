@@ -67,12 +67,12 @@ local STDLIB_STATIC = bool_default(_OPTIONS["stdlib_static"], false)
 
 solution "SimpleGameEngine"
   configurations { "Debug", "Release" }
+  platforms { "native", "x32", "x64" }
 
   targetdir( BIN_DIR )
   objdir   ( OBJ_DIR )
 
-  includedirs { SFML_INCLUDE_DIR, MWUTIL_INCLUDE_DIR, BOOST_INCLUDE_DIR }
-  libdirs     { SFML_LIBS_DIR }
+  includedirs { MWUTIL_INCLUDE_DIR, BOOST_INCLUDE_DIR }
 
   flags { "ExtraWarnings", "FatalWarnings", "NoRTTI", "NoPCH" }
   
@@ -102,10 +102,7 @@ project "SGE"
   files       { "src/**.cpp" }
   includedirs { "src" }
 
-  SFML_LIBS = { "graphics", "audio", "window", "system" }
-  
-  defines_SFML()
-  links_SFML( SFML_LIBS )
+  use_SFML    { "graphics", "audio", "window", "system" }
 
   configuration "Debug"
     kind "ConsoleApp"
