@@ -34,13 +34,13 @@ newoption {
 
 -- ///////////////////////////////////////////////////// --
 
--- SFML2 directories and configuration
+-- SFML2 configuration
 dofile "make/SFML.lua"
 
--- MwUtil directories and configuration
+-- MwUtil configuration
 dofile "make/MwUtil.lua"
 
--- Boost directories and configuration
+-- Boost configuration
 dofile "make/Boost.lua"
 
 -- ///////////////////////////////////////////////////// --
@@ -72,8 +72,6 @@ solution "SimpleGameEngine"
   targetdir( BIN_DIR )
   objdir   ( OBJ_DIR )
 
-  includedirs { MWUTIL_INCLUDE_DIR, BOOST_INCLUDE_DIR }
-
   flags { "ExtraWarnings", "FatalWarnings", "NoRTTI", "NoPCH" }
   
   if STDLIB_STATIC then
@@ -103,6 +101,8 @@ project "SGE"
   includedirs { "src" }
 
   use_SFML    { "graphics", "audio", "window", "system" }
+  use_Boost   { }
+  use_MwUtil  { }
 
   configuration "Debug"
     kind "ConsoleApp"

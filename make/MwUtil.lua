@@ -11,15 +11,21 @@ newoption {
 
 -- ///////////////////////////////////////////////////// --
 
-MWUTIL_DIR          = _OPTIONS["mwutil_directory"] or ""
-MWUTIL_INCLUDE_DIR  = MWUTIL_DIR .. "/src"
+local MWUTIL_DIR = _OPTIONS["mwutil_directory"] or ""
 
 -- ///////////////////////////////////////////////////// --
 
 if _OPTIONS["mwutil_directory"] then
   -- Check directory validity
-  local m = os.matchfiles(MWUTIL_INCLUDE_DIR .."/Mw/Config.hpp")
+  local m = os.matchfiles(MWUTIL_DIR .."/src/Mw/Config.hpp")
   if #m == 0 then
-    print("Not a valid MwUtil include directory : ".. MWUTIL_INCLUDE_DIR)
+    print("Not a valid MwUtil directory : ".. MWUTIL_DIR)
   end
+end
+
+-- ///////////////////////////////////////////////////// --
+
+-- Enable MwUtil
+function use_MwUtil()
+  includedirs { MWUTIL_DIR .."/src" }
 end

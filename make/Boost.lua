@@ -1,14 +1,5 @@
--- Variables:
---      BOOST_DIR
---      BOOST_STATIC
---      BOOST_RUNTIME_STATIC
---      BOOST_MULTITHREAD
---      BOOST_INCLUDE_DIR
---      BOOST_LIBS_DIR
---      BOOST_SYSTEM
---      BOOST_VERSION
 -- Functions:
---      links_Boost(libs, debug)
+--      use_Boost(libs)
 
 -- Boost options
 newoption {
@@ -56,11 +47,11 @@ local function bool_default(value, default)
   error (value.." is not a valid boolean value")
 end
 
-BOOST_DIR           = _OPTIONS["boost_directory"] or ""
-BOOST_INCLUDE_DIR   = BOOST_DIR
-BOOST_LIBS_DIR      = _OPTIONS["boost_bin_directory"] .."/lib"
-BOOST_RUNTIME_STATIC= bool_default(_OPTIONS["boost_runtime_static"], false)
-BOOST_MULTITHREAD   = bool_default(_OPTIONS["boost_multithread"], false)
+local BOOST_DIR            = _OPTIONS["boost_directory"] or ""
+local BOOST_INCLUDE_DIR    = BOOST_DIR
+local BOOST_LIBS_DIR       = _OPTIONS["boost_bin_directory"] .."/lib"
+local BOOST_RUNTIME_STATIC = bool_default(_OPTIONS["boost_runtime_static"], false)
+local BOOST_MULTITHREAD    = bool_default(_OPTIONS["boost_multithread"], false)
 
 -- ///////////////////////////////////////////////////// --
 
@@ -91,21 +82,34 @@ end
 
 -- ///////////////////////////////////////////////////// --
 
--- Boost libraries
-function links_Boost(libs, debug)
-    local s = ""
-    if BOOST_RUNTIME_STATIC or debug then
-        s = "-"
-        if BOOST_RUNTIME_STATIC then
-            s = s .. "s"
-        end
-        if debug then
-            s = s .. "d"
-        end
+-- Enable Boost
+function use_Boost(libs)
+  -- Boost paths
+  includedirs { BOOST_INCLUDE_DIR }
+  libdirs     { BOOST_LIBS_DIR }
+
+  -- Boost libs
+  local s = ""
+  if BOOST_RUNTIME_STATIC or debug then
+    s = "-"
+    if BOOST_RUNTIME_STATIC then
+      s = s .. "s"
     end
+  end
+
+  configuration "Debug"
     for k, v in pairs(libs) do
-        if v ~= "main" then
-            links("boost_" .. v .. "-" .. BOOST_SYSTEM .. s .. "-" .. BOOST_VERSION)
-        end
+      if v ~= "main" then
+        links("boost_" .. v .. "-" .. BOOST_SYSTEM .. s .. "d-" .. BOOST_VERSION)
+      end
     end
+
+  configuration "Release"
+    for k, v in pairs(libs) do
+      if v ~= "main" then
+        links("boost_" .. v .. "-" .. BOOST_SYSTEM .. s .. "-" .. BOOST_VERSION)
+      end
+    end
+
+  configuration {}
 end
