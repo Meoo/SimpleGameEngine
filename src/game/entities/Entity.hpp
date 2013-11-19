@@ -7,16 +7,8 @@
 #define _ENTITY_HPP_
 
 #include <set>
-#include <vector>
 
-#include <SFML/Graphics/Drawable.hpp>
-#include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Time.hpp>
-
-#include <Mw/Math/Vector2.hpp>
-#include <Mw/Math/Bounds2.hpp>
-
-#include "game/physics/Body.hpp"
 
 class World;
 
